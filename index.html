@@ -2,173 +2,193 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elevator Pitch Agency – Instant Marketing Audit</title>
+  <!-- viewport-fit=cover lets content extend under iPhone notch/home bar -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Elevator Pitch Audit</title>
+
+  <!-- ── PWA ── -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0a1628" />
+  <!-- iOS PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="EP Audit" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <!-- iOS splash screens (status bar area fill) -->
+  <meta name="apple-touch-fullscreen" content="yes" />
+
+  <!-- ── SEO ── -->
+  <meta name="description" content="Get your instant marketing score and a personalised growth roadmap in 60 seconds. Free tool by Elevator Pitch Agency." />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy: #0a1628;
-      --navy-mid: #1a2d50;
-      --navy-light: #2c4a7c;
-      --accent: #0055ff;
-      --accent-light: #e8eeff;
-      --green: #00a86b;
-      --green-bg: #e6f7f2;
-      --orange: #f5a623;
-      --orange-bg: #fff8ec;
-      --red: #e53e3e;
-      --red-bg: #fff5f5;
-      --gray: #6b7280;
-      --gray-light: #f5f7fa;
-      --border: #e5e9f0;
-      --radius: 14px;
-      --shadow: 0 2px 16px rgba(10,22,40,0.08);
-      --shadow-hover: 0 6px 28px rgba(10,22,40,0.14);
+      --navy:        #0a1628;
+      --navy-mid:    #1a2d50;
+      --navy-light:  #2c4a7c;
+      --accent:      #0055ff;
+      --accent-light:#e8eeff;
+      --green:       #00a86b;
+      --green-bg:    #e6f7f2;
+      --red:         #e53e3e;
+      --red-bg:      #fff5f5;
+      --gray:        #6b7280;
+      --gray-light:  #f2f2f7;  /* iOS system background */
+      --border:      #e5e9f0;
+      --card-bg:     #ffffff;
+      --radius:      16px;
+      --shadow:      0 1px 4px rgba(10,22,40,0.05), 0 4px 20px rgba(10,22,40,0.07);
     }
 
+    /* ── BASE ── */
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
-      background: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--gray-light);
       color: var(--navy);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      /* Space for sticky CTA bar */
+      padding-bottom: calc(80px + env(safe-area-inset-bottom));
     }
 
-    /* ── HEADER ── */
+    /* ── APP HEADER ── */
     header {
-      padding: 48px 24px 32px;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .logo-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
       background: var(--navy);
       color: #fff;
+      text-align: center;
+      /* Handle iPhone status bar in standalone mode */
+      padding-top: calc(20px + env(safe-area-inset-top));
+      padding-bottom: 32px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .app-wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 6px 14px;
-      border-radius: 100px;
-      margin-bottom: 24px;
+      opacity: 0.55;
+      margin-bottom: 18px;
     }
 
-    .logo-badge span { opacity: 0.6; }
+    .app-wordmark svg { opacity: 0.8; }
 
     header h1 {
-      font-size: clamp(26px, 5vw, 42px);
+      font-size: clamp(24px, 6vw, 38px);
       font-weight: 700;
-      color: var(--navy);
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
       line-height: 1.15;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     header h1 em {
       font-style: normal;
-      color: var(--accent);
+      /* Subtle blue-white tint */
+      color: rgba(255,255,255,0.75);
     }
 
     header p {
-      font-size: 17px;
-      color: var(--gray);
-      max-width: 480px;
+      font-size: 15px;
+      opacity: 0.65;
+      max-width: 340px;
       margin: 0 auto;
-      line-height: 1.6;
+      line-height: 1.55;
     }
 
-    /* ── MAIN LAYOUT ── */
+    /* ── MAIN ── */
     main {
-      max-width: 760px;
+      max-width: 680px;
       margin: 0 auto;
-      padding: 40px 24px 80px;
+      padding: 20px 16px 0;
     }
 
-    /* ── SECTION TITLES ── */
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 16px;
-    }
-
-    /* ── FORM CARD ── */
+    /* ── CARDS ── */
     .card {
-      background: #fff;
-      border: 1px solid var(--border);
+      background: var(--card-bg);
       border-radius: var(--radius);
-      padding: 28px;
+      padding: 20px;
       box-shadow: var(--shadow);
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
-    .card h2 {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 20px;
+    .card-title {
       display: flex;
       align-items: center;
       gap: 10px;
+      margin-bottom: 18px;
     }
 
-    .card h2 .icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
+    .card-title .icon-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
       background: var(--accent-light);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 15px;
+      flex-shrink: 0;
     }
 
-    /* ── INPUTS ── */
+    .card-title h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── FIELDS ── */
     .fields {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .fields .full { grid-column: 1 / -1; }
-
-    .field-group { display: flex; flex-direction: column; gap: 6px; }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
 
     label {
       font-size: 13px;
       font-weight: 500;
       color: var(--navy-mid);
+      letter-spacing: -0.005em;
     }
+
+    label .req { color: var(--red); margin-left: 2px; }
 
     input[type="text"],
     input[type="url"],
-    input[type="number"],
     select {
       width: 100%;
-      height: 44px;
+      height: 52px;
       padding: 0 14px;
       border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-size: 15px;
+      border-radius: 12px;
+      font-size: 16px; /* 16px prevents iOS zoom on focus */
+      font-family: inherit;
       color: var(--navy);
-      background: #fff;
+      background: var(--card-bg);
       outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s;
       -webkit-appearance: none;
       appearance: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
     select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
+      background-position: right 16px center;
+      padding-right: 40px;
     }
 
     input:focus, select:focus {
@@ -176,21 +196,30 @@
       box-shadow: 0 0 0 3px rgba(0,85,255,0.1);
     }
 
-    input::placeholder { color: #b0bac9; }
+    input::placeholder { color: #b8c2d0; }
 
-    /* ── BUDGET RANGE ── */
-    .budget-display {
-      font-size: 22px;
+    .field-error {
+      font-size: 12px;
+      color: var(--red);
+      display: none;
+      margin-top: 2px;
+    }
+
+    input.invalid, select.invalid { border-color: var(--red); }
+
+    /* ── BUDGET ── */
+    .budget-value {
+      font-size: 26px;
       font-weight: 700;
       color: var(--navy);
-      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
     }
 
     input[type="range"] {
       width: 100%;
-      height: 4px;
-      border-radius: 4px;
-      background: linear-gradient(to right, var(--accent) 0%, var(--accent) 50%, var(--border) 50%, var(--border) 100%);
+      height: 6px;
+      border-radius: 6px;
       outline: none;
       cursor: pointer;
       -webkit-appearance: none;
@@ -199,61 +228,74 @@
 
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: var(--accent);
       border: 3px solid #fff;
-      box-shadow: 0 1px 6px rgba(0,85,255,0.35);
+      box-shadow: 0 1px 8px rgba(0,85,255,0.4);
       cursor: pointer;
     }
 
     input[type="range"]::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: var(--accent);
       border: 3px solid #fff;
-      box-shadow: 0 1px 6px rgba(0,85,255,0.35);
+      box-shadow: 0 1px 8px rgba(0,85,255,0.4);
       cursor: pointer;
     }
 
-    /* ── YES/NO QUESTIONS ── */
-    .questions { display: flex; flex-direction: column; gap: 12px; }
+    .budget-range-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    /* ── QUESTIONS ── */
+    .questions { display: flex; flex-direction: column; gap: 10px; }
 
     .question-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
       background: var(--gray-light);
-      border-radius: 10px;
-      gap: 16px;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .question-text {
       font-size: 14px;
       font-weight: 500;
       color: var(--navy);
-      flex: 1;
+      line-height: 1.45;
     }
 
     .toggle-group {
-      display: flex;
-      gap: 6px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
 
     .toggle-btn {
-      padding: 6px 16px;
-      border-radius: 8px;
+      height: 44px;
+      border-radius: 10px;
       border: 1.5px solid var(--border);
-      background: #fff;
-      font-size: 13px;
+      background: var(--card-bg);
+      font-size: 14px;
       font-weight: 600;
+      font-family: inherit;
       color: var(--gray);
       cursor: pointer;
-      transition: all 0.15s;
+      transition: background 0.12s, border-color 0.12s, color 0.12s, transform 0.08s;
+      -webkit-tap-highlight-color: transparent;
     }
+
+    .toggle-btn:active { transform: scale(0.97); }
 
     .toggle-btn.active-yes {
       background: var(--green-bg);
@@ -267,51 +309,57 @@
       color: var(--red);
     }
 
-    .toggle-btn:hover:not(.active-yes):not(.active-no) {
-      background: var(--gray-light);
-      border-color: #c0c8d8;
+    /* ── STICKY CTA BAR ── */
+    #sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      padding: 12px 16px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+      background: rgba(255,255,255,0.92);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border);
+      transition: opacity 0.2s, transform 0.2s;
     }
 
-    /* ── SUBMIT BUTTON ── */
-    .submit-wrap { margin-top: 28px; }
+    #sticky-bar.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+    }
 
     button.audit-btn {
       width: 100%;
-      height: 52px;
+      height: 54px;
       background: var(--navy);
       color: #fff;
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       font-size: 16px;
       font-weight: 600;
-      cursor: pointer;
+      font-family: inherit;
       letter-spacing: -0.01em;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
       transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-      box-shadow: 0 4px 14px rgba(10,22,40,0.2);
+      box-shadow: 0 4px 18px rgba(10,22,40,0.25);
     }
 
-    button.audit-btn:hover {
-      background: var(--navy-mid);
-      box-shadow: var(--shadow-hover);
-    }
+    button.audit-btn:active { transform: scale(0.98); }
 
-    button.audit-btn:active { transform: scale(0.99); }
-
-    button.audit-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* ── RESULTS SECTION ── */
-    #results { display: none; margin-top: 36px; }
+    /* ── RESULTS ── */
+    #results { display: none; padding-top: 4px; }
 
     .results-header {
       text-align: center;
-      margin-bottom: 32px;
+      padding: 24px 0 20px;
     }
 
     .results-header h2 {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 700;
       color: var(--navy);
       letter-spacing: -0.02em;
@@ -319,38 +367,50 @@
     }
 
     .results-header p {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--gray);
     }
 
-    /* ── SCORE RING ── */
+    /* ── SCORE CARD ── */
     .score-card {
       background: var(--navy);
       border-radius: var(--radius);
-      padding: 36px;
+      padding: 28px 24px;
       text-align: center;
       color: #fff;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       position: relative;
       overflow: hidden;
     }
 
+    /* Decorative blobs */
     .score-card::before {
       content: '';
       position: absolute;
-      top: -60px; right: -60px;
-      width: 200px; height: 200px;
+      top: -50px; right: -50px;
+      width: 160px; height: 160px;
       border-radius: 50%;
       background: rgba(255,255,255,0.04);
+      pointer-events: none;
     }
 
     .score-card::after {
       content: '';
       position: absolute;
-      bottom: -80px; left: -40px;
-      width: 240px; height: 240px;
+      bottom: -60px; left: -30px;
+      width: 200px; height: 200px;
       border-radius: 50%;
       background: rgba(255,255,255,0.03);
+      pointer-events: none;
+    }
+
+    .score-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 16px;
     }
 
     .score-ring-wrap {
@@ -358,18 +418,18 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .score-ring {
-      width: 140px;
-      height: 140px;
+      width: 148px;
+      height: 148px;
       transform: rotate(-90deg);
     }
 
     .score-ring .track {
       fill: none;
-      stroke: rgba(255,255,255,0.12);
+      stroke: rgba(255,255,255,0.1);
       stroke-width: 10;
     }
 
@@ -380,190 +440,219 @@
       stroke-linecap: round;
       stroke-dasharray: 345;
       stroke-dashoffset: 345;
-      transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1);
+      transition: stroke-dashoffset 1.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .score-number {
       position: absolute;
-      font-size: 36px;
+      font-size: 38px;
       font-weight: 800;
       color: #fff;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.05em;
       line-height: 1;
     }
 
-    .score-number span {
-      font-size: 18px;
+    .score-number sup {
+      font-size: 16px;
       font-weight: 500;
-      opacity: 0.6;
-    }
-
-    .score-label {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      opacity: 0.6;
-      margin-bottom: 8px;
+      opacity: 0.55;
+      vertical-align: super;
+      letter-spacing: 0;
     }
 
     .score-grade {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
       margin-bottom: 4px;
+      letter-spacing: -0.01em;
     }
 
     .score-sub {
-      font-size: 14px;
-      opacity: 0.65;
-    }
-
-    /* ── ISSUES & WINS ── */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .result-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .result-card h3 {
       font-size: 13px;
+      opacity: 0.6;
+      line-height: 1.4;
+    }
+
+    /* ── RESULT CARDS ── */
+    .result-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+    }
+
+    .result-card-title {
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
       margin-bottom: 14px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
 
-    .result-card h3.issues { color: var(--red); }
-    .result-card h3.wins   { color: var(--green); }
+    .result-card-title.issues { color: var(--red); }
+    .result-card-title.wins   { color: var(--green); }
+    .result-card-title.pkgs   { color: var(--navy-light); }
 
-    .result-list { display: flex; flex-direction: column; gap: 10px; }
+    .result-list { display: flex; flex-direction: column; gap: 12px; }
 
     .result-item {
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      font-size: 13.5px;
+      font-size: 14px;
       line-height: 1.5;
       color: var(--navy-mid);
     }
 
-    .result-icon {
-      width: 20px;
-      height: 20px;
+    .result-dot {
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
+      font-weight: 700;
       flex-shrink: 0;
       margin-top: 1px;
     }
 
-    .result-icon.issue { background: var(--red-bg); color: var(--red); }
-    .result-icon.win   { background: var(--green-bg); color: var(--green); }
+    .result-dot.issue { background: var(--red-bg);   color: var(--red);   }
+    .result-dot.win   { background: var(--green-bg); color: var(--green); }
 
     /* ── PACKAGES ── */
-    .packages {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 20px;
+    /* Horizontal scroll on mobile, grid on desktop */
+    .packages-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 4px 0 12px;
+      scrollbar-width: none;
+      /* Bleed to show peek of next card */
+      margin: 0 -20px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .packages-scroll::-webkit-scrollbar { display: none; }
+
+    /* First/last card spacing tricks for scroll padding */
+    .packages-scroll::before,
+    .packages-scroll::after {
+      content: '';
+      flex-shrink: 0;
+      width: 4px;
     }
 
     .pkg {
+      flex: 0 0 calc(100% - 60px);
+      scroll-snap-align: start;
       border: 2px solid var(--border);
       border-radius: var(--radius);
-      padding: 22px 18px;
-      text-align: center;
-      transition: all 0.2s;
+      padding: 20px 18px;
+      background: var(--card-bg);
       position: relative;
-      background: #fff;
+      transition: border-color 0.2s;
     }
 
     .pkg.recommended {
       border-color: var(--accent);
       background: var(--accent-light);
-      box-shadow: 0 0 0 4px rgba(0,85,255,0.08);
     }
 
     .pkg-badge {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
+      display: inline-block;
       background: var(--accent);
       color: #fff;
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 100px;
-      white-space: nowrap;
+      margin-bottom: 12px;
     }
 
     .pkg-name {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--navy);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
     }
 
     .pkg-price {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 800;
       color: var(--navy);
       letter-spacing: -0.03em;
-      margin-bottom: 4px;
+      line-height: 1;
+      margin-bottom: 2px;
     }
 
     .pkg-period {
       font-size: 12px;
       color: var(--gray);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .pkg-features {
       list-style: none;
-      text-align: left;
-      font-size: 12.5px;
+      font-size: 13px;
       color: var(--navy-mid);
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 8px;
     }
 
-    .pkg-features li { display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
-    .pkg-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .pkg-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
 
-    /* ── RESET BUTTON ── */
-    .reset-wrap { text-align: center; margin-top: 20px; }
+    .pkg-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .pkg-scroll-hint {
+      text-align: center;
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 6px;
+    }
+
+    /* ── RESET ── */
+    .reset-wrap {
+      text-align: center;
+      padding: 8px 0 24px;
+    }
 
     button.reset-btn {
       background: none;
       border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 24px;
-      font-size: 14px;
+      border-radius: 12px;
+      padding: 13px 28px;
+      font-size: 15px;
       font-weight: 600;
+      font-family: inherit;
       color: var(--gray);
       cursor: pointer;
-      transition: all 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.15s, color 0.15s;
     }
 
-    button.reset-btn:hover {
+    button.reset-btn:active {
       border-color: var(--navy);
       color: var(--navy);
     }
@@ -571,72 +660,118 @@
     /* ── FOOTER ── */
     footer {
       text-align: center;
-      padding: 24px;
-      border-top: 1px solid var(--border);
-      font-size: 13px;
+      padding: 20px 16px;
+      padding-bottom: calc(20px + env(safe-area-inset-bottom));
+      font-size: 12px;
       color: var(--gray);
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
     }
 
-    footer a { color: var(--navy); text-decoration: none; font-weight: 600; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 580px) {
-      .fields { grid-template-columns: 1fr; }
-      .two-col { grid-template-columns: 1fr; }
-      .packages { grid-template-columns: 1fr; }
-      .card { padding: 20px; }
-      .score-card { padding: 28px 20px; }
-    }
+    footer strong { color: var(--navy); }
+    footer a { color: var(--accent); text-decoration: none; }
 
     /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .fade-up { animation: fadeUp 0.45s ease both; }
-    .fade-up-2 { animation: fadeUp 0.45s 0.08s ease both; }
-    .fade-up-3 { animation: fadeUp 0.45s 0.16s ease both; }
-    .fade-up-4 { animation: fadeUp 0.45s 0.24s ease both; }
+    .anim-1 { animation: slideUp 0.4s ease both; }
+    .anim-2 { animation: slideUp 0.4s 0.07s ease both; }
+    .anim-3 { animation: slideUp 0.4s 0.14s ease both; }
+    .anim-4 { animation: slideUp 0.4s 0.21s ease both; }
+    .anim-5 { animation: slideUp 0.4s 0.28s ease both; }
 
-    /* ── VALIDATION ERROR ── */
-    .field-error {
-      font-size: 12px;
-      color: var(--red);
-      margin-top: 4px;
-      display: none;
-    }
+    /* ── DESKTOP UPGRADES (≥640px) ── */
+    @media (min-width: 640px) {
+      header {
+        padding-top: calc(48px + env(safe-area-inset-top));
+        padding-bottom: 40px;
+      }
 
-    input.invalid, select.invalid {
-      border-color: var(--red);
+      main { padding: 28px 24px 0; }
+
+      .card { padding: 28px; }
+
+      .fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .question-row {
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        padding: 16px 18px;
+      }
+
+      .question-text { flex: 1; }
+
+      .toggle-group {
+        display: flex;
+        gap: 8px;
+        grid-template-columns: unset;
+        flex-shrink: 0;
+      }
+
+      .toggle-btn { width: 72px; }
+
+      #sticky-bar { max-width: 680px; margin: 0 auto; left: 50%; right: auto; transform: translateX(-50%); border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+
+      #sticky-bar.hidden { transform: translateX(-50%) translateY(8px); }
+
+      .packages-scroll {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        overflow-x: unset;
+        scroll-snap-type: unset;
+        margin: 0;
+        padding: 0;
+      }
+
+      .packages-scroll::before,
+      .packages-scroll::after { display: none; }
+
+      .pkg { flex: unset; }
+
+      .pkg-scroll-hint { display: none; }
+
+      .result-card { padding: 24px; }
+
+      .score-card { padding: 36px 32px; }
     }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ── APP HEADER ── -->
 <header>
-  <div class="logo-badge">
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" fill="white" opacity="0.3"/><circle cx="6" cy="6" r="2.5" fill="white"/></svg>
+  <div class="app-wordmark">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="7" r="6" stroke="white" stroke-width="1.5" opacity="0.6"/>
+      <circle cx="7" cy="7" r="2.5" fill="white"/>
+    </svg>
     Elevator Pitch Agency
   </div>
   <h1>Instant <em>Marketing</em> Audit</h1>
-  <p>Get your marketing score and a personalised growth roadmap in under 60 seconds.</p>
+  <p>Your marketing score and growth roadmap in 60 seconds.</p>
 </header>
 
-<!-- MAIN FORM -->
-<main>
+<!-- ── MAIN ── -->
+<main id="appMain">
   <form id="auditForm" novalidate>
 
-    <!-- BUSINESS INFO -->
+    <!-- BUSINESS DETAILS -->
     <div class="card">
-      <h2>
-        <div class="icon">🏢</div>
-        Business Details
-      </h2>
+      <div class="card-title">
+        <div class="icon-wrap">🏢</div>
+        <h2>Business Details</h2>
+      </div>
       <div class="fields">
         <div class="field-group">
-          <label for="bizName">Business Name <span style="color:var(--red)">*</span></label>
+          <label for="bizName">Business Name <span class="req">*</span></label>
           <input type="text" id="bizName" placeholder="Acme Corp" autocomplete="organization" />
           <div class="field-error" id="err-bizName">Please enter your business name.</div>
         </div>
@@ -645,9 +780,9 @@
           <input type="url" id="website" placeholder="https://yoursite.com" autocomplete="url" />
         </div>
         <div class="field-group">
-          <label for="industry">Industry <span style="color:var(--red)">*</span></label>
+          <label for="industry">Industry <span class="req">*</span></label>
           <select id="industry">
-            <option value="" disabled selected>Select industry</option>
+            <option value="" disabled selected>Select industry…</option>
             <option>E-commerce</option>
             <option>SaaS / Software</option>
             <option>Professional Services</option>
@@ -666,22 +801,24 @@
         </div>
         <div class="field-group">
           <label for="budget">Monthly Marketing Budget</label>
-          <div class="budget-display" id="budgetDisplay">$2,500</div>
+          <div class="budget-value" id="budgetDisplay">$2,500</div>
           <input type="range" id="budget" min="500" max="10000" step="500" value="2500" />
-          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:var(--gray)">
-            <span>$500</span><span>$10,000</span>
+          <div class="budget-range-labels">
+            <span>$500</span>
+            <span>$10,000+</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- MARKETING QUESTIONS -->
+    <!-- MARKETING HEALTH CHECK -->
     <div class="card">
-      <h2>
-        <div class="icon">📊</div>
-        Marketing Health Check
-      </h2>
+      <div class="card-title">
+        <div class="icon-wrap">📊</div>
+        <h2>Marketing Health Check</h2>
+      </div>
       <div class="questions">
+
         <div class="question-row">
           <div class="question-text">Do you currently run paid ads (Google, Meta, etc.)?</div>
           <div class="toggle-group" data-q="ads">
@@ -689,6 +826,7 @@
             <button type="button" class="toggle-btn" data-val="no">No</button>
           </div>
         </div>
+
         <div class="question-row">
           <div class="question-text">Do you post content consistently (at least weekly)?</div>
           <div class="toggle-group" data-q="posting">
@@ -696,6 +834,7 @@
             <button type="button" class="toggle-btn" data-val="no">No</button>
           </div>
         </div>
+
         <div class="question-row">
           <div class="question-text">Do you actively collect leads (email list, CRM, forms)?</div>
           <div class="toggle-group" data-q="leads">
@@ -703,6 +842,7 @@
             <button type="button" class="toggle-btn" data-val="no">No</button>
           </div>
         </div>
+
         <div class="question-row">
           <div class="question-text">Do you run retargeting ads (past visitors / warm audiences)?</div>
           <div class="toggle-group" data-q="retargeting">
@@ -710,6 +850,7 @@
             <button type="button" class="toggle-btn" data-val="no">No</button>
           </div>
         </div>
+
         <div class="question-row">
           <div class="question-text">Do you track analytics and review them regularly?</div>
           <div class="toggle-group" data-q="analytics">
@@ -717,85 +858,95 @@
             <button type="button" class="toggle-btn" data-val="no">No</button>
           </div>
         </div>
+
       </div>
     </div>
 
-    <div class="submit-wrap">
-      <button type="submit" class="audit-btn" id="submitBtn">
-        Generate My Marketing Audit →
-      </button>
-    </div>
   </form>
 
-  <!-- RESULTS -->
+  <!-- ── RESULTS ── -->
   <section id="results" aria-live="polite">
-    <div class="results-header fade-up">
+
+    <div class="results-header anim-1">
       <h2>Your Marketing Audit</h2>
-      <p id="resultsSubtitle">Here's what we found for <strong id="resultsName"></strong></p>
+      <p>Results for <strong id="resultsName"></strong></p>
     </div>
 
-    <!-- SCORE -->
-    <div class="score-card fade-up-2">
-      <div class="score-label">Marketing Score</div>
+    <!-- Score -->
+    <div class="score-card anim-2">
+      <div class="score-eyebrow">Marketing Score</div>
       <div class="score-ring-wrap">
         <svg class="score-ring" viewBox="0 0 120 120">
           <circle class="track" cx="60" cy="60" r="55"/>
           <circle class="fill" id="scoreFill" cx="60" cy="60" r="55"/>
         </svg>
-        <div class="score-number" id="scoreNumber">0<span>/100</span></div>
+        <div class="score-number" id="scoreNumber">0<sup>/100</sup></div>
       </div>
       <div class="score-grade" id="scoreGrade"></div>
       <div class="score-sub" id="scoreSub"></div>
     </div>
 
-    <!-- ISSUES & WINS -->
-    <div class="two-col fade-up-3">
-      <div class="result-card">
-        <h3 class="issues">⚠ Top 3 Issues</h3>
-        <div class="result-list" id="issuesList"></div>
-      </div>
-      <div class="result-card">
-        <h3 class="wins">✦ 3 Quick Wins</h3>
-        <div class="result-list" id="winsList"></div>
-      </div>
+    <!-- Issues -->
+    <div class="result-card anim-3">
+      <div class="result-card-title issues">⚠ Top 3 Issues</div>
+      <div class="result-list" id="issuesList"></div>
     </div>
 
-    <!-- PACKAGES -->
-    <div class="result-card fade-up-4" style="margin-bottom:20px">
-      <h3 style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);margin-bottom:18px">
-        📦 Recommended Package
-      </h3>
-      <div class="packages" id="packagesGrid"></div>
+    <!-- Wins -->
+    <div class="result-card anim-4">
+      <div class="result-card-title wins">✦ 3 Quick Wins</div>
+      <div class="result-list" id="winsList"></div>
     </div>
 
-    <div class="reset-wrap fade-up-4">
+    <!-- Packages -->
+    <div class="result-card anim-5">
+      <div class="result-card-title pkgs">📦 Recommended Package</div>
+      <!-- Horizontal scroll on mobile, grid on desktop -->
+      <div class="packages-scroll" id="packagesGrid"></div>
+      <p class="pkg-scroll-hint">← Swipe to compare packages →</p>
+    </div>
+
+    <div class="reset-wrap anim-5">
       <button class="reset-btn" id="resetBtn">← Start a New Audit</button>
     </div>
+
   </section>
 </main>
 
 <footer>
-  <strong>Elevator Pitch Agency</strong> — Instant Marketing Audit &nbsp;·&nbsp;
+  <strong>Elevator Pitch Agency</strong> &nbsp;·&nbsp;
   <a href="mailto:hello@elevatorpitchagency.com">hello@elevatorpitchagency.com</a>
 </footer>
 
+<!-- ── STICKY CTA ── -->
+<div id="sticky-bar">
+  <button type="button" class="audit-btn" id="submitBtn">Get My Score →</button>
+</div>
+
 <script>
+  /* ─── SERVICE WORKER ─────────────────────────────── */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+  }
+
   /* ─── BUDGET SLIDER ─────────────────────────────── */
-  const budgetSlider = document.getElementById('budget');
+  const budgetSlider  = document.getElementById('budget');
   const budgetDisplay = document.getElementById('budgetDisplay');
 
-  function updateBudgetSlider() {
+  function updateSlider() {
     const val = parseInt(budgetSlider.value);
     const min = parseInt(budgetSlider.min);
     const max = parseInt(budgetSlider.max);
     const pct = ((val - min) / (max - min)) * 100;
     budgetSlider.style.background =
-      `linear-gradient(to right, var(--accent) ${pct}%, var(--accent) ${pct}%, var(--border) ${pct}%, var(--border) 100%)`;
+      `linear-gradient(to right,var(--accent) ${pct}%,var(--border) ${pct}%)`;
     budgetDisplay.textContent = '$' + val.toLocaleString();
   }
 
-  budgetSlider.addEventListener('input', updateBudgetSlider);
-  updateBudgetSlider();
+  budgetSlider.addEventListener('input', updateSlider);
+  updateSlider();
 
   /* ─── TOGGLE BUTTONS ─────────────────────────────── */
   const answers = {};
@@ -803,14 +954,11 @@
   document.querySelectorAll('.toggle-group').forEach(group => {
     group.querySelectorAll('.toggle-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const q = group.dataset.q;
+        const q   = group.dataset.q;
         const val = btn.dataset.val;
-
-        // deactivate all in group
-        group.querySelectorAll('.toggle-btn').forEach(b => {
-          b.classList.remove('active-yes', 'active-no');
-        });
-
+        group.querySelectorAll('.toggle-btn').forEach(b =>
+          b.classList.remove('active-yes', 'active-no')
+        );
         btn.classList.add(val === 'yes' ? 'active-yes' : 'active-no');
         answers[q] = val;
       });
@@ -819,47 +967,35 @@
 
   /* ─── VALIDATION ─────────────────────────────────── */
   function validate() {
-    let valid = true;
-
+    let ok = true;
     const bizName = document.getElementById('bizName');
     const industry = document.getElementById('industry');
-    const errBiz = document.getElementById('err-bizName');
-    const errInd = document.getElementById('err-industry');
 
     if (!bizName.value.trim()) {
       bizName.classList.add('invalid');
-      errBiz.style.display = 'block';
-      valid = false;
+      document.getElementById('err-bizName').style.display = 'block';
+      ok = false;
     } else {
       bizName.classList.remove('invalid');
-      errBiz.style.display = 'none';
+      document.getElementById('err-bizName').style.display = 'none';
     }
 
     if (!industry.value) {
       industry.classList.add('invalid');
-      errInd.style.display = 'block';
-      valid = false;
+      document.getElementById('err-industry').style.display = 'block';
+      ok = false;
     } else {
       industry.classList.remove('invalid');
-      errInd.style.display = 'none';
+      document.getElementById('err-industry').style.display = 'none';
     }
 
-    return valid;
+    return ok;
   }
 
-  ['bizName', 'industry'].forEach(id => {
-    document.getElementById(id).addEventListener('change', validate);
-  });
+  document.getElementById('bizName').addEventListener('input', validate);
+  document.getElementById('industry').addEventListener('change', validate);
 
-  /* ─── SCORING ENGINE ─────────────────────────────── */
-  const QUESTION_WEIGHTS = {
-    ads:         { yes: 20, no: 0 },
-    posting:     { yes: 20, no: 0 },
-    leads:       { yes: 20, no: 0 },
-    retargeting: { yes: 20, no: 0 },
-    analytics:   { yes: 20, no: 0 },
-  };
-
+  /* ─── DATA ───────────────────────────────────────── */
   const ISSUES_DB = {
     ads:         "No paid advertising – you're missing a scalable, trackable acquisition channel.",
     posting:     "Inconsistent content – irregular posting erodes trust and organic reach.",
@@ -873,50 +1009,21 @@
     posting:     "Create a 4-week content calendar and batch-produce posts in one sitting.",
     leads:       "Add a lead magnet (checklist, free consult, discount) with a simple opt-in form.",
     retargeting: "Install the Meta Pixel and Google Tag — start a 14-day retargeting campaign.",
-    analytics:   "Set up a Google Analytics 4 property and review traffic sources weekly.",
+    analytics:   "Set up Google Analytics 4 and review your traffic sources weekly.",
   };
 
-  // Bonus wins for things already done (to fill the list if needed)
-  const POSITIVE_WINS = [
+  const BONUS_WINS = [
     "A/B test your best-performing ad creative to double down on what's working.",
-    "Nurture your email list with a 5-part welcome sequence to convert more leads.",
+    "Nurture your list with a 5-part welcome email sequence to convert more leads.",
     "Expand retargeting to YouTube and LinkedIn for multi-channel touchpoints.",
     "Build a referral incentive programme to turn happy clients into brand advocates.",
     "Run a quarterly competitor audit and benchmark your positioning.",
     "Create a case study from your top client result to add social proof.",
   ];
 
-  function computeScore(ans, budget) {
-    let base = 0;
-    const questions = ['ads', 'posting', 'leads', 'retargeting', 'analytics'];
-
-    questions.forEach(q => {
-      if (ans[q] === 'yes') base += QUESTION_WEIGHTS[q].yes;
-    });
-
-    // Budget bonus (up to 10 points)
-    const budgetBonus = Math.min(10, Math.floor((budget - 500) / 950));
-    return Math.min(100, base + budgetBonus);
-  }
-
-  function getGrade(score) {
-    if (score >= 85) return { grade: 'Excellent', sub: 'Your marketing is firing on all cylinders.' };
-    if (score >= 65) return { grade: 'Good',      sub: 'Solid foundations — a few gaps to close.' };
-    if (score >= 40) return { grade: 'Fair',       sub: 'Key systems are missing — room to grow.' };
-    return               { grade: 'Needs Work',   sub: 'Critical gaps are costing you leads.' };
-  }
-
-  function getPackage(score, budget) {
-    if (score >= 70 || budget >= 7000) return 'authority';
-    if (score >= 40 || budget >= 3000) return 'growth';
-    return 'starter';
-  }
-
   const PACKAGES = {
     starter: {
-      name: 'Starter',
-      price: '$1,500',
-      desc: '/month',
+      name: 'Starter', price: '$1,500', period: '/month',
       features: [
         'Social media management (3×/week)',
         'Basic SEO setup & optimisation',
@@ -926,9 +1033,7 @@
       ]
     },
     growth: {
-      name: 'Growth',
-      price: '$2,500',
-      desc: '/month',
+      name: 'Growth', price: '$2,500', period: '/month',
       features: [
         'Everything in Starter',
         'Paid ads management (Google or Meta)',
@@ -939,9 +1044,7 @@
       ]
     },
     authority: {
-      name: 'Authority',
-      price: '$3,000',
-      desc: '/month',
+      name: 'Authority', price: '$3,000', period: '/month',
       features: [
         'Everything in Growth',
         'Full funnel strategy & build',
@@ -953,130 +1056,137 @@
     }
   };
 
+  /* ─── SCORING ─────────────────────────────────────── */
+  function computeScore(ans, budget) {
+    const weights = { ads: 20, posting: 20, leads: 20, retargeting: 20, analytics: 20 };
+    let base = 0;
+    Object.keys(weights).forEach(q => { if (ans[q] === 'yes') base += weights[q]; });
+    const budgetBonus = Math.min(10, Math.floor((budget - 500) / 950));
+    return Math.min(100, base + budgetBonus);
+  }
+
+  function getGrade(score) {
+    if (score >= 85) return { grade: 'Excellent',  sub: 'Your marketing is firing on all cylinders.' };
+    if (score >= 65) return { grade: 'Good',        sub: 'Solid foundations — a few gaps to close.' };
+    if (score >= 40) return { grade: 'Fair',         sub: 'Key systems are missing — room to grow fast.' };
+    return               { grade: 'Needs Work',    sub: 'Critical gaps are costing you leads daily.' };
+  }
+
+  function getPackage(score, budget) {
+    if (score >= 70 || budget >= 7000) return 'authority';
+    if (score >= 40 || budget >= 3000) return 'growth';
+    return 'starter';
+  }
+
   /* ─── RENDER RESULTS ─────────────────────────────── */
   function renderResults(bizName, score, ans, budget) {
-    const questions = ['ads', 'posting', 'leads', 'retargeting', 'analytics'];
-
-    // Issues: answered "no" (up to 3)
-    const issueKeys = questions.filter(q => ans[q] === 'no' || !ans[q]);
+    const QUESTIONS = ['ads', 'posting', 'leads', 'retargeting', 'analytics'];
+    const issueKeys = QUESTIONS.filter(q => ans[q] !== 'yes');
     const topIssues = issueKeys.slice(0, 3);
 
-    // Quick wins: issues first, then positive wins
-    const winKeys = issueKeys.slice(0, 3);
-    const quickWins = [];
-    winKeys.forEach(k => quickWins.push(WINS_DB[k]));
+    const quickWins = issueKeys.slice(0, 3).map(k => WINS_DB[k]);
+    let bi = 0;
+    while (quickWins.length < 3) quickWins.push(BONUS_WINS[bi++]);
 
-    let pi = 0;
-    while (quickWins.length < 3) {
-      quickWins.push(POSITIVE_WINS[pi++]);
-    }
-
-    // Score ring
-    const circumference = 345;
-    const offset = circumference - (score / 100) * circumference;
+    // Animate score ring
+    const circ = 345;
+    const offset = circ - (score / 100) * circ;
     setTimeout(() => {
       document.getElementById('scoreFill').style.strokeDashoffset = offset;
     }, 80);
 
-    // Animate score counter
+    // Animate counter
     const scoreEl = document.getElementById('scoreNumber');
-    let current = 0;
-    const step = Math.ceil(score / 40);
+    let cur = 0;
+    const step = Math.max(1, Math.ceil(score / 40));
     const timer = setInterval(() => {
-      current = Math.min(current + step, score);
-      scoreEl.innerHTML = current + '<span>/100</span>';
-      if (current >= score) clearInterval(timer);
-    }, 30);
+      cur = Math.min(cur + step, score);
+      scoreEl.innerHTML = cur + '<sup>/100</sup>';
+      if (cur >= score) clearInterval(timer);
+    }, 28);
 
-    // Grade
     const { grade, sub } = getGrade(score);
     document.getElementById('scoreGrade').textContent = grade;
-    document.getElementById('scoreSub').textContent = sub;
-
-    // Name
+    document.getElementById('scoreSub').textContent   = sub;
     document.getElementById('resultsName').textContent = bizName;
 
-    // Issues list
+    // Issues
     const issuesList = document.getElementById('issuesList');
-    issuesList.innerHTML = '';
     if (topIssues.length === 0) {
-      issuesList.innerHTML = '<div class="result-item"><div class="result-icon win">✓</div>No critical issues found — great work!</div>';
+      issuesList.innerHTML = `<div class="result-item">
+        <div class="result-dot win">✓</div>
+        <span>No critical issues found — great work!</span>
+      </div>`;
     } else {
-      topIssues.forEach(k => {
-        issuesList.innerHTML += `
-          <div class="result-item">
-            <div class="result-icon issue">!</div>
-            <span>${ISSUES_DB[k]}</span>
-          </div>`;
-      });
+      issuesList.innerHTML = topIssues.map(k => `
+        <div class="result-item">
+          <div class="result-dot issue">!</div>
+          <span>${ISSUES_DB[k]}</span>
+        </div>`).join('');
     }
 
-    // Wins list
-    const winsList = document.getElementById('winsList');
-    winsList.innerHTML = '';
-    quickWins.forEach(w => {
-      winsList.innerHTML += `
-        <div class="result-item">
-          <div class="result-icon win">✓</div>
-          <span>${w}</span>
-        </div>`;
-    });
+    // Wins
+    document.getElementById('winsList').innerHTML = quickWins.map(w => `
+      <div class="result-item">
+        <div class="result-dot win">✓</div>
+        <span>${w}</span>
+      </div>`).join('');
 
     // Packages
     const recommended = getPackage(score, budget);
-    const packagesGrid = document.getElementById('packagesGrid');
-    packagesGrid.innerHTML = '';
-
-    ['starter', 'growth', 'authority'].forEach(key => {
-      const pkg = PACKAGES[key];
-      const isRec = key === recommended;
-      packagesGrid.innerHTML += `
-        <div class="pkg ${isRec ? 'recommended' : ''}">
-          ${isRec ? '<div class="pkg-badge">Best For You</div>' : ''}
-          <div class="pkg-name">${pkg.name}</div>
-          <div class="pkg-price">${pkg.price}</div>
-          <div class="pkg-period">${pkg.desc}</div>
+    document.getElementById('packagesGrid').innerHTML =
+      ['starter', 'growth', 'authority'].map(key => {
+        const p = PACKAGES[key];
+        const isRec = key === recommended;
+        return `<div class="pkg${isRec ? ' recommended' : ''}">
+          ${isRec ? '<span class="pkg-badge">Best For You</span>' : ''}
+          <div class="pkg-name">${p.name}</div>
+          <div class="pkg-price">${p.price}</div>
+          <div class="pkg-period">${p.period}</div>
           <ul class="pkg-features">
-            ${pkg.features.map(f => `<li>${f}</li>`).join('')}
+            ${p.features.map(f => `<li>${f}</li>`).join('')}
           </ul>
         </div>`;
-    });
+      }).join('');
 
-    // Show results
-    const resultsEl = document.getElementById('results');
-    resultsEl.style.display = 'block';
-    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Show results, hide form + sticky CTA
+    document.getElementById('auditForm').style.display = 'none';
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('sticky-bar').classList.add('hidden');
+
+    // Scroll to results
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  /* ─── FORM SUBMIT ─────────────────────────────────── */
-  document.getElementById('auditForm').addEventListener('submit', e => {
-    e.preventDefault();
-    if (!validate()) return;
-
+  /* ─── SUBMIT ─────────────────────────────────────── */
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    if (!validate()) {
+      // Scroll to first error
+      const firstInvalid = document.querySelector('.invalid');
+      if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
     const bizName = document.getElementById('bizName').value.trim();
-    const budget = parseInt(budgetSlider.value);
-    const score = computeScore(answers, budget);
-
-    renderResults(bizName, score, answers, budget);
+    const budget  = parseInt(budgetSlider.value);
+    renderResults(bizName, computeScore(answers, budget), answers, budget);
   });
 
   /* ─── RESET ──────────────────────────────────────── */
   document.getElementById('resetBtn').addEventListener('click', () => {
     document.getElementById('auditForm').reset();
     budgetSlider.value = 2500;
-    updateBudgetSlider();
+    updateSlider();
 
-    // Reset toggles
-    document.querySelectorAll('.toggle-btn').forEach(b => {
-      b.classList.remove('active-yes', 'active-no');
-    });
-    for (const k in answers) delete answers[k];
+    document.querySelectorAll('.toggle-btn').forEach(b =>
+      b.classList.remove('active-yes', 'active-no')
+    );
+    Object.keys(answers).forEach(k => delete answers[k]);
 
-    // Hide results
-    document.getElementById('results').style.display = 'none';
+    document.getElementById('results').style.display     = 'none';
+    document.getElementById('auditForm').style.display   = '';
+    document.getElementById('sticky-bar').classList.remove('hidden');
     document.getElementById('scoreFill').style.strokeDashoffset = 345;
 
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>

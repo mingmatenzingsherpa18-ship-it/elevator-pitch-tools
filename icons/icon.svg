@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Navy background with iOS-style rounded corners -->
+  <rect width="512" height="512" rx="112" fill="#0a1628"/>
+
+  <!-- Subtle radial glow top-right -->
+  <radialGradient id="glow" cx="75%" cy="20%" r="55%">
+    <stop offset="0%" stop-color="#2c4a7c" stop-opacity="0.6"/>
+    <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="512" height="512" rx="112" fill="url(#glow)"/>
+
+  <!-- Ascending bar chart (3 bars) -->
+  <!-- Bar 1 – short -->
+  <rect x="108" y="318" width="76" height="110" rx="10" fill="white" opacity="0.25"/>
+  <!-- Bar 2 – medium -->
+  <rect x="218" y="238" width="76" height="190" rx="10" fill="white" opacity="0.55"/>
+  <!-- Bar 3 – tall -->
+  <rect x="328" y="158" width="76" height="270" rx="10" fill="white"/>
+
+  <!-- Upward trend arrow/line -->
+  <polyline
+    points="140,310 260,220 380,140"
+    fill="none"
+    stroke="white"
+    stroke-width="18"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.9"
+  />
+  <!-- Arrowhead -->
+  <polyline
+    points="340,128 380,140 368,178"
+    fill="none"
+    stroke="white"
+    stroke-width="18"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.9"
+  />
+
+  <!-- Small accent dot top-left -->
+  <circle cx="108" cy="108" r="18" fill="white" opacity="0.15"/>
+</svg>

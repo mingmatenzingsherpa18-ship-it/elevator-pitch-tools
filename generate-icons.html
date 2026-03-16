@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generate PWA Icons — Elevator Pitch Audit</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f2f2f7;
+      color: #0a1628;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 24px;
+      padding: 32px 20px;
+      text-align: center;
+    }
+
+    h1 { font-size: 22px; font-weight: 700; }
+    p  { font-size: 14px; color: #6b7280; max-width: 360px; line-height: 1.6; }
+
+    .canvases {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .canvas-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    canvas {
+      border-radius: 22%;
+      box-shadow: 0 4px 20px rgba(10,22,40,0.2);
+    }
+
+    .label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0a1628;
+    }
+
+    .btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: none;
+      background: #0a1628;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .instructions {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px 24px;
+      text-align: left;
+      max-width: 420px;
+      font-size: 13px;
+      line-height: 1.7;
+      box-shadow: 0 2px 12px rgba(10,22,40,0.07);
+    }
+
+    .instructions strong { color: #0a1628; }
+
+    .check { color: #00a86b; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<h1>Generate PWA Icons</h1>
+<p>This page draws the Elevator Pitch Audit icon at two sizes and downloads them as PNG files.</p>
+
+<div class="canvases">
+  <div class="canvas-wrap">
+    <canvas id="c192" width="192" height="192"></canvas>
+    <div class="label">icon-192.png</div>
+  </div>
+  <div class="canvas-wrap">
+    <canvas id="c512" width="512" height="512"></canvas>
+    <div class="label">icon-512.png</div>
+  </div>
+</div>
+
+<div class="btns">
+  <button onclick="downloadAll()">⬇ Download Both Icons</button>
+</div>
+
+<div class="instructions">
+  <strong>After downloading:</strong><br>
+  <span class="check">1.</span> Move <code>icon-192.png</code> and <code>icon-512.png</code> into the <code>icons/</code> folder.<br>
+  <span class="check">2.</span> Your PWA is ready. Open <code>index.html</code> in a browser to use the app.<br>
+  <span class="check">3.</span> See <code>README.md</code> for how to install on iPhone via Safari.
+</div>
+
+<script>
+  function drawIcon(canvas) {
+    const s = canvas.width;
+    const ctx = canvas.getContext('2d');
+    const r = s * 0.22; // corner radius
+
+    // ── Background rounded rect ──
+    ctx.beginPath();
+    ctx.moveTo(r, 0);
+    ctx.lineTo(s - r, 0);
+    ctx.quadraticCurveTo(s, 0, s, r);
+    ctx.lineTo(s, s - r);
+    ctx.quadraticCurveTo(s, s, s - r, s);
+    ctx.lineTo(r, s);
+    ctx.quadraticCurveTo(0, s, 0, s - r);
+    ctx.lineTo(0, r);
+    ctx.quadraticCurveTo(0, 0, r, 0);
+    ctx.closePath();
+
+    // Navy gradient fill
+    const grad = ctx.createLinearGradient(0, 0, s, s);
+    grad.addColorStop(0, '#0d1e38');
+    grad.addColorStop(1, '#0a1628');
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // ── Subtle glow top-right ──
+    const glow = ctx.createRadialGradient(s * 0.8, s * 0.15, 0, s * 0.8, s * 0.15, s * 0.55);
+    glow.addColorStop(0, 'rgba(44,74,124,0.5)');
+    glow.addColorStop(1, 'rgba(10,22,40,0)');
+    ctx.fillStyle = glow;
+    ctx.fill();
+
+    const lw = s * 0.036; // line width scale
+
+    // ── Bar chart ──
+    const barW  = s * 0.148;
+    const barR  = s * 0.022;
+    const baseY = s * 0.84;
+
+    const bars = [
+      { x: s * 0.21, h: s * 0.215, alpha: 0.25 },
+      { x: s * 0.425, h: s * 0.37,  alpha: 0.55 },
+      { x: s * 0.64,  h: s * 0.525, alpha: 1.0  },
+    ];
+
+    bars.forEach(b => {
+      ctx.fillStyle = `rgba(255,255,255,${b.alpha})`;
+      const y = baseY - b.h;
+      ctx.beginPath();
+      ctx.moveTo(b.x + barR, y);
+      ctx.lineTo(b.x + barW - barR, y);
+      ctx.quadraticCurveTo(b.x + barW, y, b.x + barW, y + barR);
+      ctx.lineTo(b.x + barW, y + b.h);
+      ctx.lineTo(b.x, y + b.h);
+      ctx.lineTo(b.x, y + barR);
+      ctx.quadraticCurveTo(b.x, y, b.x + barR, y);
+      ctx.closePath();
+      ctx.fill();
+    });
+
+    // ── Trend line ──
+    const p1 = { x: bars[0].x + barW / 2, y: baseY - bars[0].h - s * 0.04 };
+    const p2 = { x: bars[1].x + barW / 2, y: baseY - bars[1].h - s * 0.04 };
+    const p3 = { x: bars[2].x + barW / 2, y: baseY - bars[2].h - s * 0.04 };
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+    ctx.lineWidth   = lw;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.lineTo(p3.x, p3.y);
+    ctx.stroke();
+
+    // ── Arrowhead at p3 ──
+    const angle   = Math.atan2(p3.y - p2.y, p3.x - p2.x);
+    const aLen    = lw * 2.2;
+    const aAngle  = Math.PI / 5;
+
+    ctx.beginPath();
+    ctx.moveTo(
+      p3.x - aLen * Math.cos(angle - aAngle),
+      p3.y - aLen * Math.sin(angle - aAngle)
+    );
+    ctx.lineTo(p3.x, p3.y);
+    ctx.lineTo(
+      p3.x - aLen * Math.cos(angle + aAngle),
+      p3.y - aLen * Math.sin(angle + aAngle)
+    );
+    ctx.stroke();
+  }
+
+  // Draw both on load
+  const c192 = document.getElementById('c192');
+  const c512 = document.getElementById('c512');
+  drawIcon(c192);
+  drawIcon(c512);
+
+  function downloadCanvas(canvas, filename) {
+    const a = document.createElement('a');
+    a.download = filename;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function downloadAll() {
+    downloadCanvas(c192, 'icon-192.png');
+    setTimeout(() => downloadCanvas(c512, 'icon-512.png'), 300);
+  }
+
+  // Auto-download on first visit (can comment out if you just want preview)
+  // downloadAll();
+</script>
+</body>
+</html>
