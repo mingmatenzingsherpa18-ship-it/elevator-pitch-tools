@@ -78,8 +78,6 @@
       margin-bottom: 18px;
     }
 
-    .app-wordmark svg { opacity: 0.8; }
-
     header h1 {
       font-size: clamp(24px, 6vw, 38px);
       font-weight: 700;
@@ -123,18 +121,6 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 18px;
-    }
-
-    .card-title .icon-wrap {
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      background: var(--accent-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      flex-shrink: 0;
     }
 
     .card-title h2 {
@@ -748,13 +734,7 @@
 
 <!-- ── APP HEADER ── -->
 <header>
-  <div class="app-wordmark">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <circle cx="7" cy="7" r="6" stroke="white" stroke-width="1.5" opacity="0.6"/>
-      <circle cx="7" cy="7" r="2.5" fill="white"/>
-    </svg>
-    Elevator Pitch Agency
-  </div>
+  <div class="app-wordmark">Elevator Pitch Agency</div>
   <h1>Instant <em>Marketing</em> Audit</h1>
   <p>Your marketing score and growth roadmap in 60 seconds.</p>
 </header>
@@ -766,7 +746,6 @@
     <!-- BUSINESS DETAILS -->
     <div class="card">
       <div class="card-title">
-        <div class="icon-wrap">🏢</div>
         <h2>Business Details</h2>
       </div>
       <div class="fields">
@@ -814,7 +793,6 @@
     <!-- MARKETING HEALTH CHECK -->
     <div class="card">
       <div class="card-title">
-        <div class="icon-wrap">📊</div>
         <h2>Marketing Health Check</h2>
       </div>
       <div class="questions">
@@ -888,19 +866,19 @@
 
     <!-- Issues -->
     <div class="result-card anim-3">
-      <div class="result-card-title issues">⚠ Top 3 Issues</div>
+      <div class="result-card-title issues">Top 3 Issues</div>
       <div class="result-list" id="issuesList"></div>
     </div>
 
     <!-- Wins -->
     <div class="result-card anim-4">
-      <div class="result-card-title wins">✦ 3 Quick Wins</div>
+      <div class="result-card-title wins">3 Quick Wins</div>
       <div class="result-list" id="winsList"></div>
     </div>
 
     <!-- Packages -->
     <div class="result-card anim-5">
-      <div class="result-card-title pkgs">📦 Recommended Package</div>
+      <div class="result-card-title pkgs">Recommended Package</div>
       <!-- Horizontal scroll on mobile, grid on desktop -->
       <div class="packages-scroll" id="packagesGrid"></div>
       <p class="pkg-scroll-hint">← Swipe to compare packages →</p>
