@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elevator Pitch Agency – Instant Marketing Audit</title>
+  <title>Elevator Pitch Agency – Marketing Performance Audit</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -37,35 +37,33 @@
 
     /* ── HEADER ── */
     header {
-      padding: 48px 24px 32px;
+      padding: 56px 24px 40px;
       text-align: center;
       border-bottom: 1px solid var(--border);
+      background: #fff;
     }
 
-    . {
-      display: inline-flex;
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 8px;
-      background: var(--navy);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 6px 14px;
-      border-radius: 100px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
-    .logo-badge span { opacity: 0.6; }
+    .logo-wrap img {
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
 
     header h1 {
-      font-size: clamp(26px, 5vw, 42px);
-      font-weight: 700;
+      font-size: clamp(30px, 5vw, 48px);
+      font-weight: 750;
       color: var(--navy);
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 14px;
     }
 
     header h1 em {
@@ -74,11 +72,12 @@
     }
 
     header p {
-      font-size: 17px;
+      font-size: 18px;
       color: var(--gray);
-      max-width: 480px;
+      max-width: 620px;
       margin: 0 auto;
-      line-height: 1.6;
+      line-height: 1.65;
+      font-weight: 400;
     }
 
     /* ── MAIN LAYOUT ── */
@@ -109,18 +108,12 @@
     }
 
     .card h2 {
-      font-size: 17px;
-      font-weight: 600;
+      font-size: 18px;
+      font-weight: 650;
       color: var(--navy);
       margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      letter-spacing: -0.02em;
     }
-
-.card h2 .icon {
-  display: none;
-}    }
 
     /* ── INPUTS ── */
     .fields {
@@ -574,6 +567,18 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 580px) {
+      header {
+        padding: 44px 20px 32px;
+      }
+
+      .logo-wrap img {
+        height: 46px;
+      }
+
+      header p {
+        font-size: 16px;
+      }
+
       .fields { grid-template-columns: 1fr; }
       .two-col { grid-template-columns: 1fr; }
       .packages { grid-template-columns: 1fr; }
@@ -607,25 +612,19 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
- <div style="margin-bottom:24px;">
-  <img src="logo.png" alt="Elevator Pitch Agency" style="height:48px;">
-</div>
-  <h1>Instant <em>Marketing</em> Audit</h1>
-  <p>Get your marketing score and a personalised growth roadmap in under 60 seconds.</p>
+  <div class="logo-wrap">
+    <img src="logo.png" alt="Elevator Pitch Agency logo">
+  </div>
+  <h1>Marketing <em>Performance</em> Audit</h1>
+  <p>Get a clear breakdown of your marketing performance and a strategic growth plan in under 60 seconds.</p>
 </header>
 
-<!-- MAIN FORM -->
 <main>
   <form id="auditForm" novalidate>
 
-    <!-- BUSINESS INFO -->
     <div class="card">
-      <h2>
-        <div class="icon">🏢</div>
-        Business Details
-      </h2>
+      <h2>Business Details</h2>
       <div class="fields">
         <div class="field-group">
           <label for="bizName">Business Name <span style="color:var(--red)">*</span></label>
@@ -667,12 +666,8 @@
       </div>
     </div>
 
-    <!-- MARKETING QUESTIONS -->
     <div class="card">
-      <h2>
-        <div class="icon">📊</div>
-        Marketing Health Check
-      </h2>
+      <h2>Marketing Health Check</h2>
       <div class="questions">
         <div class="question-row">
           <div class="question-text">Do you currently run paid ads (Google, Meta, etc.)?</div>
@@ -719,14 +714,12 @@
     </div>
   </form>
 
-  <!-- RESULTS -->
   <section id="results" aria-live="polite">
     <div class="results-header fade-up">
       <h2>Your Marketing Audit</h2>
       <p id="resultsSubtitle">Here's what we found for <strong id="resultsName"></strong></p>
     </div>
 
-    <!-- SCORE -->
     <div class="score-card fade-up-2">
       <div class="score-label">Marketing Score</div>
       <div class="score-ring-wrap">
@@ -740,22 +733,20 @@
       <div class="score-sub" id="scoreSub"></div>
     </div>
 
-    <!-- ISSUES & WINS -->
     <div class="two-col fade-up-3">
       <div class="result-card">
         <h3 class="issues">Top 3 Issues</h3>
         <div class="result-list" id="issuesList"></div>
       </div>
       <div class="result-card">
-        <h3 class="wins"><h3 class="wins"><h3 class="wins"><h3 class="wins"><h3 class="wins"><h3 class="wins"><h3 class="wins"><h3 class="wins"><h3 class="wins"><h3 class="wins"><h3 class="wins">3 Quick Wins</h3></h3></h3></h3></h3></h3></h3></h3></h3></h3></h3>
+        <h3 class="wins">3 Quick Wins</h3>
         <div class="result-list" id="winsList"></div>
       </div>
     </div>
 
-    <!-- PACKAGES -->
     <div class="result-card fade-up-4" style="margin-bottom:20px">
       <h3 style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);margin-bottom:18px">
-         Recommended Package
+        Recommended Package
       </h3>
       <div class="packages" id="packagesGrid"></div>
     </div>
@@ -767,12 +758,11 @@
 </main>
 
 <footer>
-  <strong>Elevator Pitch Agency</strong> — Instant Marketing Audit &nbsp;·&nbsp;
+  <strong>Elevator Pitch Agency</strong> — Marketing Performance Audit &nbsp;·&nbsp;
   <a href="mailto:hello@elevatorpitchagency.com">hello@elevatorpitchagency.com</a>
 </footer>
 
 <script>
-  /* ─── BUDGET SLIDER ─────────────────────────────── */
   const budgetSlider = document.getElementById('budget');
   const budgetDisplay = document.getElementById('budgetDisplay');
 
@@ -789,7 +779,6 @@
   budgetSlider.addEventListener('input', updateBudgetSlider);
   updateBudgetSlider();
 
-  /* ─── TOGGLE BUTTONS ─────────────────────────────── */
   const answers = {};
 
   document.querySelectorAll('.toggle-group').forEach(group => {
@@ -798,7 +787,6 @@
         const q = group.dataset.q;
         const val = btn.dataset.val;
 
-        // deactivate all in group
         group.querySelectorAll('.toggle-btn').forEach(b => {
           b.classList.remove('active-yes', 'active-no');
         });
@@ -809,7 +797,6 @@
     });
   });
 
-  /* ─── VALIDATION ─────────────────────────────────── */
   function validate() {
     let valid = true;
 
@@ -843,7 +830,6 @@
     document.getElementById(id).addEventListener('change', validate);
   });
 
-  /* ─── SCORING ENGINE ─────────────────────────────── */
   const QUESTION_WEIGHTS = {
     ads:         { yes: 20, no: 0 },
     posting:     { yes: 20, no: 0 },
@@ -868,7 +854,6 @@
     analytics:   "Set up a Google Analytics 4 property and review traffic sources weekly.",
   };
 
-  // Bonus wins for things already done (to fill the list if needed)
   const POSITIVE_WINS = [
     "A/B test your best-performing ad creative to double down on what's working.",
     "Nurture your email list with a 5-part welcome sequence to convert more leads.",
@@ -886,16 +871,15 @@
       if (ans[q] === 'yes') base += QUESTION_WEIGHTS[q].yes;
     });
 
-    // Budget bonus (up to 10 points)
     const budgetBonus = Math.min(10, Math.floor((budget - 500) / 950));
     return Math.min(100, base + budgetBonus);
   }
 
   function getGrade(score) {
     if (score >= 85) return { grade: 'Excellent', sub: 'Your marketing is firing on all cylinders.' };
-    if (score >= 65) return { grade: 'Good',      sub: 'Solid foundations — a few gaps to close.' };
-    if (score >= 40) return { grade: 'Fair',       sub: 'Key systems are missing — room to grow.' };
-    return               { grade: 'Needs Work',   sub: 'Critical gaps are costing you leads.' };
+    if (score >= 65) return { grade: 'Good', sub: 'Solid foundations — a few gaps to close.' };
+    if (score >= 40) return { grade: 'Fair', sub: 'Key systems are missing — room to grow.' };
+    return { grade: 'Needs Work', sub: 'Critical gaps are costing you leads.' };
   }
 
   function getPackage(score, budget) {
@@ -945,15 +929,12 @@
     }
   };
 
-  /* ─── RENDER RESULTS ─────────────────────────────── */
   function renderResults(bizName, score, ans, budget) {
     const questions = ['ads', 'posting', 'leads', 'retargeting', 'analytics'];
 
-    // Issues: answered "no" (up to 3)
     const issueKeys = questions.filter(q => ans[q] === 'no' || !ans[q]);
     const topIssues = issueKeys.slice(0, 3);
 
-    // Quick wins: issues first, then positive wins
     const winKeys = issueKeys.slice(0, 3);
     const quickWins = [];
     winKeys.forEach(k => quickWins.push(WINS_DB[k]));
@@ -963,14 +944,12 @@
       quickWins.push(POSITIVE_WINS[pi++]);
     }
 
-    // Score ring
     const circumference = 345;
     const offset = circumference - (score / 100) * circumference;
     setTimeout(() => {
       document.getElementById('scoreFill').style.strokeDashoffset = offset;
     }, 80);
 
-    // Animate score counter
     const scoreEl = document.getElementById('scoreNumber');
     let current = 0;
     const step = Math.ceil(score / 40);
@@ -980,15 +959,11 @@
       if (current >= score) clearInterval(timer);
     }, 30);
 
-    // Grade
     const { grade, sub } = getGrade(score);
     document.getElementById('scoreGrade').textContent = grade;
     document.getElementById('scoreSub').textContent = sub;
-
-    // Name
     document.getElementById('resultsName').textContent = bizName;
 
-    // Issues list
     const issuesList = document.getElementById('issuesList');
     issuesList.innerHTML = '';
     if (topIssues.length === 0) {
@@ -1003,18 +978,16 @@
       });
     }
 
-    // Wins list
     const winsList = document.getElementById('winsList');
     winsList.innerHTML = '';
     quickWins.forEach(w => {
       winsList.innerHTML += `
-        <div class="result-item">
-          <div class="result-icon win">✓</div>
-          <span>${w}</span>
-        </div>`;
+          <div class="result-item">
+            <div class="result-icon win">✓</div>
+            <span>${w}</span>
+          </div>`;
     });
 
-    // Packages
     const recommended = getPackage(score, budget);
     const packagesGrid = document.getElementById('packagesGrid');
     packagesGrid.innerHTML = '';
@@ -1034,13 +1007,11 @@
         </div>`;
     });
 
-    // Show results
     const resultsEl = document.getElementById('results');
     resultsEl.style.display = 'block';
     resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  /* ─── FORM SUBMIT ─────────────────────────────────── */
   document.getElementById('auditForm').addEventListener('submit', e => {
     e.preventDefault();
     if (!validate()) return;
@@ -1052,23 +1023,19 @@
     renderResults(bizName, score, answers, budget);
   });
 
-  /* ─── RESET ──────────────────────────────────────── */
   document.getElementById('resetBtn').addEventListener('click', () => {
     document.getElementById('auditForm').reset();
     budgetSlider.value = 2500;
     updateBudgetSlider();
 
-    // Reset toggles
     document.querySelectorAll('.toggle-btn').forEach(b => {
       b.classList.remove('active-yes', 'active-no');
     });
     for (const k in answers) delete answers[k];
 
-    // Hide results
     document.getElementById('results').style.display = 'none';
     document.getElementById('scoreFill').style.strokeDashoffset = 345;
 
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>
