@@ -608,6 +608,139 @@
     input.invalid, select.invalid {
       border-color: var(--red);
     }
+
+    /* ── MARKET AUDIT TAB SWITCHER ── */
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      background: var(--gray-light);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 9px;
+      background: transparent;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: #fff;
+      color: var(--navy);
+      box-shadow: 0 1px 6px rgba(10,22,40,0.1);
+    }
+
+    /* ── MARKET SCORE BAND ── */
+    .dual-scores {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .mini-score-card {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .mini-score-card.market {
+      background: linear-gradient(135deg, #1a2d50 0%, #0a1628 100%);
+    }
+
+    .mini-score-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 10px;
+    }
+
+    .mini-score-num {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .mini-score-num span {
+      font-size: 20px;
+      font-weight: 500;
+      opacity: 0.55;
+    }
+
+    .mini-score-grade {
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0.85;
+    }
+
+    /* ── MARKET INSIGHTS CARD ── */
+    .market-insights-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .market-insights-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .insight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--navy-mid);
+      margin-bottom: 10px;
+    }
+
+    .insight-item:last-child { margin-bottom: 0; }
+
+    .insight-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .insight-icon.strength { background: var(--green-bg); color: var(--green); }
+    .insight-icon.gap      { background: var(--orange-bg); color: var(--orange); }
+    .insight-icon.opp      { background: var(--accent-light); color: var(--accent); }
+
+    @media (max-width: 580px) {
+      .dual-scores { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -707,48 +840,129 @@
       </div>
     </div>
 
+    <div class="card">
+      <h2>Competitive Market Audit</h2>
+      <div class="questions">
+        <div class="question-row">
+          <div class="question-text">Do you know who your top 3 competitors are?</div>
+          <div class="toggle-group" data-q="competitors">
+            <button type="button" class="toggle-btn" data-val="yes">Yes</button>
+            <button type="button" class="toggle-btn" data-val="no">No</button>
+          </div>
+        </div>
+        <div class="question-row">
+          <div class="question-text">Do you have a clearly defined Unique Selling Proposition (USP)?</div>
+          <div class="toggle-group" data-q="usp">
+            <button type="button" class="toggle-btn" data-val="yes">Yes</button>
+            <button type="button" class="toggle-btn" data-val="no">No</button>
+          </div>
+        </div>
+        <div class="question-row">
+          <div class="question-text">Do you have a documented ideal customer profile or buyer persona?</div>
+          <div class="toggle-group" data-q="persona">
+            <button type="button" class="toggle-btn" data-val="yes">Yes</button>
+            <button type="button" class="toggle-btn" data-val="no">No</button>
+          </div>
+        </div>
+        <div class="question-row">
+          <div class="question-text">Do you actively monitor competitor pricing and offers?</div>
+          <div class="toggle-group" data-q="pricing">
+            <button type="button" class="toggle-btn" data-val="yes">Yes</button>
+            <button type="button" class="toggle-btn" data-val="no">No</button>
+          </div>
+        </div>
+        <div class="question-row">
+          <div class="question-text">Do you operate in an underserved or growing market niche?</div>
+          <div class="toggle-group" data-q="niche">
+            <button type="button" class="toggle-btn" data-val="yes">Yes</button>
+            <button type="button" class="toggle-btn" data-val="no">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="submit-wrap">
       <button type="submit" class="audit-btn" id="submitBtn">
-        Generate My Marketing Audit →
+        Generate My Full Audit →
       </button>
     </div>
   </form>
 
   <section id="results" aria-live="polite">
     <div class="results-header fade-up">
-      <h2>Your Marketing Audit</h2>
+      <h2>Your Full Marketing &amp; Market Audit</h2>
       <p id="resultsSubtitle">Here's what we found for <strong id="resultsName"></strong></p>
     </div>
 
-    <div class="score-card fade-up-2">
-      <div class="score-label">Marketing Score</div>
-      <div class="score-ring-wrap">
-        <svg class="score-ring" viewBox="0 0 120 120">
-          <circle class="track" cx="60" cy="60" r="55"/>
-          <circle class="fill" id="scoreFill" cx="60" cy="60" r="55"/>
-        </svg>
-        <div class="score-number" id="scoreNumber">0<span>/100</span></div>
-      </div>
-      <div class="score-grade" id="scoreGrade"></div>
-      <div class="score-sub" id="scoreSub"></div>
+    <!-- Tab switcher -->
+    <div class="tab-bar fade-up">
+      <button class="tab-btn active" id="tabMarketing" onclick="showTab('marketing')">Marketing Health</button>
+      <button class="tab-btn" id="tabMarket" onclick="showTab('market')">Market Position</button>
     </div>
 
-    <div class="two-col fade-up-3">
-      <div class="result-card">
-        <h3 class="issues">Top 3 Issues</h3>
-        <div class="result-list" id="issuesList"></div>
+    <!-- Marketing Health Tab -->
+    <div id="panelMarketing">
+      <div class="score-card fade-up-2">
+        <div class="score-label">Marketing Score</div>
+        <div class="score-ring-wrap">
+          <svg class="score-ring" viewBox="0 0 120 120">
+            <circle class="track" cx="60" cy="60" r="55"/>
+            <circle class="fill" id="scoreFill" cx="60" cy="60" r="55"/>
+          </svg>
+          <div class="score-number" id="scoreNumber">0<span>/100</span></div>
+        </div>
+        <div class="score-grade" id="scoreGrade"></div>
+        <div class="score-sub" id="scoreSub"></div>
       </div>
-      <div class="result-card">
-        <h3 class="wins">3 Quick Wins</h3>
-        <div class="result-list" id="winsList"></div>
+
+      <div class="two-col fade-up-3">
+        <div class="result-card">
+          <h3 class="issues">Top 3 Issues</h3>
+          <div class="result-list" id="issuesList"></div>
+        </div>
+        <div class="result-card">
+          <h3 class="wins">3 Quick Wins</h3>
+          <div class="result-list" id="winsList"></div>
+        </div>
+      </div>
+
+      <div class="result-card fade-up-4" style="margin-bottom:20px">
+        <h3 style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);margin-bottom:18px">
+          Recommended Package
+        </h3>
+        <div class="packages" id="packagesGrid"></div>
       </div>
     </div>
 
-    <div class="result-card fade-up-4" style="margin-bottom:20px">
-      <h3 style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);margin-bottom:18px">
-        Recommended Package
-      </h3>
-      <div class="packages" id="packagesGrid"></div>
+    <!-- Market Position Tab -->
+    <div id="panelMarket" style="display:none">
+      <div class="score-card fade-up-2" style="background:linear-gradient(135deg,#1a2d50 0%,#0a1628 100%)">
+        <div class="score-label">Market Position Score</div>
+        <div class="score-ring-wrap">
+          <svg class="score-ring" viewBox="0 0 120 120">
+            <circle class="track" cx="60" cy="60" r="55"/>
+            <circle class="fill" id="marketScoreFill" cx="60" cy="60" r="55"/>
+          </svg>
+          <div class="score-number" id="marketScoreNumber">0<span>/100</span></div>
+        </div>
+        <div class="score-grade" id="marketScoreGrade"></div>
+        <div class="score-sub" id="marketScoreSub"></div>
+      </div>
+
+      <div class="market-insights-card fade-up-3">
+        <h3>Market Strengths</h3>
+        <div id="marketStrengths"></div>
+      </div>
+
+      <div class="market-insights-card fade-up-3">
+        <h3>Market Gaps</h3>
+        <div id="marketGaps"></div>
+      </div>
+
+      <div class="market-insights-card fade-up-4">
+        <h3>Growth Opportunities</h3>
+        <div id="marketOpportunities"></div>
+      </div>
     </div>
 
     <div class="reset-wrap fade-up-4">
@@ -830,12 +1044,28 @@
     document.getElementById(id).addEventListener('change', validate);
   });
 
+  // Tab switching
+  function showTab(tab) {
+    document.getElementById('panelMarketing').style.display = tab === 'marketing' ? '' : 'none';
+    document.getElementById('panelMarket').style.display = tab === 'market' ? '' : 'none';
+    document.getElementById('tabMarketing').classList.toggle('active', tab === 'marketing');
+    document.getElementById('tabMarket').classList.toggle('active', tab === 'market');
+  }
+
   const QUESTION_WEIGHTS = {
     ads:         { yes: 20, no: 0 },
     posting:     { yes: 20, no: 0 },
     leads:       { yes: 20, no: 0 },
     retargeting: { yes: 20, no: 0 },
     analytics:   { yes: 20, no: 0 },
+  };
+
+  const MARKET_WEIGHTS = {
+    competitors: { yes: 20, no: 0 },
+    usp:         { yes: 20, no: 0 },
+    persona:     { yes: 20, no: 0 },
+    pricing:     { yes: 20, no: 0 },
+    niche:       { yes: 20, no: 0 },
   };
 
   const ISSUES_DB = {
@@ -852,6 +1082,30 @@
     leads:       "Add a lead magnet (checklist, free consult, discount) with a simple opt-in form.",
     retargeting: "Install the Meta Pixel and Google Tag — start a 14-day retargeting campaign.",
     analytics:   "Set up a Google Analytics 4 property and review traffic sources weekly.",
+  };
+
+  const MARKET_STRENGTHS_DB = {
+    competitors: "You know your competitive landscape — use this intelligence to sharpen your positioning.",
+    usp:         "A defined USP sets you apart and gives your audience a clear reason to choose you.",
+    persona:     "Documented buyer personas power smarter targeting across every channel.",
+    pricing:     "Active pricing intelligence helps you stay competitive and protect your margins.",
+    niche:       "Operating in a growing niche means lower competition and higher willingness to pay.",
+  };
+
+  const MARKET_GAPS_DB = {
+    competitors: "Without competitor awareness, you risk duplicating efforts or missing market gaps entirely.",
+    usp:         "No clear USP means customers default to comparing on price — eroding your margins.",
+    persona:     "Generic messaging that speaks to everyone converts no one. Define your ideal buyer.",
+    pricing:     "Ignoring competitor pricing leaves you exposed to being undercut without warning.",
+    niche:       "Competing in a crowded space without differentiation is an uphill battle.",
+  };
+
+  const MARKET_OPPS_DB = {
+    competitors: "Run a quarterly competitor audit — identify gaps in their offer that you can own.",
+    usp:         "Workshop a one-sentence USP that combines your best outcome, fastest result, and target audience.",
+    persona:     "Interview your top 5 clients to extract common pain points and build a detailed persona.",
+    pricing:     "Set a Google Alert for each competitor and review their pricing page monthly.",
+    niche:       "Identify the 20% of your client base delivering 80% of revenue — niche down to serve more of them.",
   };
 
   const POSITIVE_WINS = [
@@ -873,6 +1127,22 @@
 
     const budgetBonus = Math.min(10, Math.floor((budget - 500) / 950));
     return Math.min(100, base + budgetBonus);
+  }
+
+  function computeMarketScore(ans) {
+    const questions = ['competitors', 'usp', 'persona', 'pricing', 'niche'];
+    let base = 0;
+    questions.forEach(q => {
+      if (ans[q] === 'yes') base += MARKET_WEIGHTS[q].yes;
+    });
+    return base;
+  }
+
+  function getMarketGrade(score) {
+    if (score >= 80) return { grade: 'Market Leader', sub: 'Strong positioning across all dimensions.' };
+    if (score >= 60) return { grade: 'Well Positioned', sub: 'Solid foundation with a few gaps to address.' };
+    if (score >= 40) return { grade: 'Developing', sub: 'Key market fundamentals need attention.' };
+    return { grade: 'Undifferentiated', sub: 'Significant positioning work ahead.' };
   }
 
   function getGrade(score) {
@@ -1007,8 +1277,65 @@
         </div>`;
     });
 
+    // ── Market position results ──
+    const marketScore = computeMarketScore(ans);
+    const marketCircumference = 345;
+    const marketOffset = marketCircumference - (marketScore / 100) * marketCircumference;
+    setTimeout(() => {
+      document.getElementById('marketScoreFill').style.strokeDashoffset = marketOffset;
+    }, 80);
+
+    const marketScoreEl = document.getElementById('marketScoreNumber');
+    let mCurrent = 0;
+    const mStep = Math.ceil(marketScore / 40) || 1;
+    const mTimer = setInterval(() => {
+      mCurrent = Math.min(mCurrent + mStep, marketScore);
+      marketScoreEl.innerHTML = mCurrent + '<span>/100</span>';
+      if (mCurrent >= marketScore) clearInterval(mTimer);
+    }, 30);
+
+    const { grade: mGrade, sub: mSub } = getMarketGrade(marketScore);
+    document.getElementById('marketScoreGrade').textContent = mGrade;
+    document.getElementById('marketScoreSub').textContent = mSub;
+
+    const marketQuestions = ['competitors', 'usp', 'persona', 'pricing', 'niche'];
+    const strengthKeys = marketQuestions.filter(q => ans[q] === 'yes');
+    const gapKeys      = marketQuestions.filter(q => ans[q] !== 'yes');
+
+    const strengthsEl = document.getElementById('marketStrengths');
+    strengthsEl.innerHTML = '';
+    if (strengthKeys.length === 0) {
+      strengthsEl.innerHTML = '<div class="insight-item"><div class="insight-icon gap">!</div><span>No market strengths identified yet — work through the gaps below.</span></div>';
+    } else {
+      strengthKeys.forEach(k => {
+        strengthsEl.innerHTML += `<div class="insight-item"><div class="insight-icon strength">✓</div><span>${MARKET_STRENGTHS_DB[k]}</span></div>`;
+      });
+    }
+
+    const gapsEl = document.getElementById('marketGaps');
+    gapsEl.innerHTML = '';
+    if (gapKeys.length === 0) {
+      gapsEl.innerHTML = '<div class="insight-item"><div class="insight-icon strength">✓</div><span>No critical market gaps — you\'re well positioned!</span></div>';
+    } else {
+      gapKeys.slice(0, 3).forEach(k => {
+        gapsEl.innerHTML += `<div class="insight-item"><div class="insight-icon gap">!</div><span>${MARKET_GAPS_DB[k]}</span></div>`;
+      });
+    }
+
+    const oppsEl = document.getElementById('marketOpportunities');
+    oppsEl.innerHTML = '';
+    const oppKeys = gapKeys.length > 0 ? gapKeys.slice(0, 3) : strengthKeys.slice(0, 3);
+    if (oppKeys.length === 0) {
+      oppsEl.innerHTML = '<div class="insight-item"><div class="insight-icon opp">→</div><span>Continue to monitor competitors and iterate on your positioning.</span></div>';
+    } else {
+      oppKeys.forEach(k => {
+        oppsEl.innerHTML += `<div class="insight-item"><div class="insight-icon opp">→</div><span>${MARKET_OPPS_DB[k]}</span></div>`;
+      });
+    }
+
     const resultsEl = document.getElementById('results');
     resultsEl.style.display = 'block';
+    showTab('marketing');
     resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -1035,6 +1362,8 @@
 
     document.getElementById('results').style.display = 'none';
     document.getElementById('scoreFill').style.strokeDashoffset = 345;
+    document.getElementById('marketScoreFill').style.strokeDashoffset = 345;
+    showTab('marketing');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
