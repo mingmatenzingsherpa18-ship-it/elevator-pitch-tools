@@ -4,6 +4,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BlowUp — Go Viral With AI</title>
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#b96ef7" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="BlowUp" />
+<link rel="apple-touch-icon" href="/icon-192.png" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -1598,6 +1605,11 @@ function copyTemplate(el, text) {
 
 // INIT
 generateIdeas();
+
+// SERVICE WORKER
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
 </script>
 
 </body>
