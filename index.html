@@ -1,1043 +1,1358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elevator Pitch Agency – Marketing Performance Audit</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --navy: #0a1628;
-      --navy-mid: #1a2d50;
-      --navy-light: #2c4a7c;
-      --accent: #0055ff;
-      --accent-light: #e8eeff;
-      --green: #00a86b;
-      --green-bg: #e6f7f2;
-      --orange: #f5a623;
-      --orange-bg: #fff8ec;
-      --red: #e53e3e;
-      --red-bg: #fff5f5;
-      --gray: #6b7280;
-      --gray-light: #f5f7fa;
-      --border: #e5e9f0;
-      --radius: 14px;
-      --shadow: 0 2px 16px rgba(10,22,40,0.08);
-      --shadow-hover: 0 6px 28px rgba(10,22,40,0.14);
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
-      background: #fff;
-      color: var(--navy);
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── HEADER ── */
-    header {
-      padding: 56px 24px 40px;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-      background: #fff;
-    }
-
-    .logo-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 28px;
-    }
-
-    .logo-wrap img {
-      height: 56px;
-      width: auto;
-      object-fit: contain;
-      display: block;
-    }
-
-    header h1 {
-      font-size: clamp(30px, 5vw, 48px);
-      font-weight: 750;
-      color: var(--navy);
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 14px;
-    }
-
-    header h1 em {
-      font-style: normal;
-      color: var(--accent);
-    }
-
-    header p {
-      font-size: 18px;
-      color: var(--gray);
-      max-width: 620px;
-      margin: 0 auto;
-      line-height: 1.65;
-      font-weight: 400;
-    }
-
-    /* ── MAIN LAYOUT ── */
-    main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 40px 24px 80px;
-    }
-
-    /* ── SECTION TITLES ── */
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 16px;
-    }
-
-    /* ── FORM CARD ── */
-    .card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-    }
-
-    .card h2 {
-      font-size: 18px;
-      font-weight: 650;
-      color: var(--navy);
-      margin-bottom: 20px;
-      letter-spacing: -0.02em;
-    }
-
-    /* ── INPUTS ── */
-    .fields {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .fields .full { grid-column: 1 / -1; }
-
-    .field-group { display: flex; flex-direction: column; gap: 6px; }
-
-    label {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--navy-mid);
-    }
-
-    input[type="text"],
-    input[type="url"],
-    input[type="number"],
-    select {
-      width: 100%;
-      height: 44px;
-      padding: 0 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-size: 15px;
-      color: var(--navy);
-      background: #fff;
-      outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
-    }
-
-    input:focus, select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(0,85,255,0.1);
-    }
-
-    input::placeholder { color: #b0bac9; }
-
-    /* ── BUDGET RANGE ── */
-    .budget-display {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 8px;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      height: 4px;
-      border-radius: 4px;
-      background: linear-gradient(to right, var(--accent) 0%, var(--accent) 50%, var(--border) 50%, var(--border) 100%);
-      outline: none;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--accent);
-      border: 3px solid #fff;
-      box-shadow: 0 1px 6px rgba(0,85,255,0.35);
-      cursor: pointer;
-    }
-
-    input[type="range"]::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--accent);
-      border: 3px solid #fff;
-      box-shadow: 0 1px 6px rgba(0,85,255,0.35);
-      cursor: pointer;
-    }
-
-    /* ── YES/NO QUESTIONS ── */
-    .questions { display: flex; flex-direction: column; gap: 12px; }
-
-    .question-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      background: var(--gray-light);
-      border-radius: 10px;
-      gap: 16px;
-    }
-
-    .question-text {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--navy);
-      flex: 1;
-    }
-
-    .toggle-group {
-      display: flex;
-      gap: 6px;
-    }
-
-    .toggle-btn {
-      padding: 6px 16px;
-      border-radius: 8px;
-      border: 1.5px solid var(--border);
-      background: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--gray);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .toggle-btn.active-yes {
-      background: var(--green-bg);
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    .toggle-btn.active-no {
-      background: var(--red-bg);
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    .toggle-btn:hover:not(.active-yes):not(.active-no) {
-      background: var(--gray-light);
-      border-color: #c0c8d8;
-    }
-
-    /* ── SUBMIT BUTTON ── */
-    .submit-wrap { margin-top: 28px; }
-
-    button.audit-btn {
-      width: 100%;
-      height: 52px;
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      letter-spacing: -0.01em;
-      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-      box-shadow: 0 4px 14px rgba(10,22,40,0.2);
-    }
-
-    button.audit-btn:hover {
-      background: var(--navy-mid);
-      box-shadow: var(--shadow-hover);
-    }
-
-    button.audit-btn:active { transform: scale(0.99); }
-
-    button.audit-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* ── RESULTS SECTION ── */
-    #results { display: none; margin-top: 36px; }
-
-    .results-header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    .results-header h2 {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--navy);
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-
-    .results-header p {
-      font-size: 15px;
-      color: var(--gray);
-    }
-
-    /* ── SCORE RING ── */
-    .score-card {
-      background: var(--navy);
-      border-radius: var(--radius);
-      padding: 36px;
-      text-align: center;
-      color: #fff;
-      margin-bottom: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .score-card::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.04);
-    }
-
-    .score-card::after {
-      content: '';
-      position: absolute;
-      bottom: -80px; left: -40px;
-      width: 240px; height: 240px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.03);
-    }
-
-    .score-ring-wrap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      margin-bottom: 16px;
-    }
-
-    .score-ring {
-      width: 140px;
-      height: 140px;
-      transform: rotate(-90deg);
-    }
-
-    .score-ring .track {
-      fill: none;
-      stroke: rgba(255,255,255,0.12);
-      stroke-width: 10;
-    }
-
-    .score-ring .fill {
-      fill: none;
-      stroke: #fff;
-      stroke-width: 10;
-      stroke-linecap: round;
-      stroke-dasharray: 345;
-      stroke-dashoffset: 345;
-      transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1);
-    }
-
-    .score-number {
-      position: absolute;
-      font-size: 36px;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.04em;
-      line-height: 1;
-    }
-
-    .score-number span {
-      font-size: 18px;
-      font-weight: 500;
-      opacity: 0.6;
-    }
-
-    .score-label {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      opacity: 0.6;
-      margin-bottom: 8px;
-    }
-
-    .score-grade {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .score-sub {
-      font-size: 14px;
-      opacity: 0.65;
-    }
-
-    /* ── ISSUES & WINS ── */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .result-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .result-card h3 {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .result-card h3.issues { color: var(--red); }
-    .result-card h3.wins   { color: var(--green); }
-
-    .result-list { display: flex; flex-direction: column; gap: 10px; }
-
-    .result-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 13.5px;
-      line-height: 1.5;
-      color: var(--navy-mid);
-    }
-
-    .result-icon {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .result-icon.issue { background: var(--red-bg); color: var(--red); }
-    .result-icon.win   { background: var(--green-bg); color: var(--green); }
-
-    /* ── PACKAGES ── */
-    .packages {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    .pkg {
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px 18px;
-      text-align: center;
-      transition: all 0.2s;
-      position: relative;
-      background: #fff;
-    }
-
-    .pkg.recommended {
-      border-color: var(--accent);
-      background: var(--accent-light);
-      box-shadow: 0 0 0 4px rgba(0,85,255,0.08);
-    }
-
-    .pkg-badge {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 100px;
-      white-space: nowrap;
-    }
-
-    .pkg-name {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 6px;
-    }
-
-    .pkg-price {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--navy);
-      letter-spacing: -0.03em;
-      margin-bottom: 4px;
-    }
-
-    .pkg-period {
-      font-size: 12px;
-      color: var(--gray);
-      margin-bottom: 14px;
-    }
-
-    .pkg-features {
-      list-style: none;
-      text-align: left;
-      font-size: 12.5px;
-      color: var(--navy-mid);
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .pkg-features li { display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
-    .pkg-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
-
-    /* ── RESET BUTTON ── */
-    .reset-wrap { text-align: center; margin-top: 20px; }
-
-    button.reset-btn {
-      background: none;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 24px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gray);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    button.reset-btn:hover {
-      border-color: var(--navy);
-      color: var(--navy);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 24px;
-      border-top: 1px solid var(--border);
-      font-size: 13px;
-      color: var(--gray);
-    }
-
-    footer a { color: var(--navy); text-decoration: none; font-weight: 600; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 580px) {
-      header {
-        padding: 44px 20px 32px;
-      }
-
-      .logo-wrap img {
-        height: 46px;
-      }
-
-      header p {
-        font-size: 16px;
-      }
-
-      .fields { grid-template-columns: 1fr; }
-      .two-col { grid-template-columns: 1fr; }
-      .packages { grid-template-columns: 1fr; }
-      .card { padding: 20px; }
-      .score-card { padding: 28px 20px; }
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-up { animation: fadeUp 0.45s ease both; }
-    .fade-up-2 { animation: fadeUp 0.45s 0.08s ease both; }
-    .fade-up-3 { animation: fadeUp 0.45s 0.16s ease both; }
-    .fade-up-4 { animation: fadeUp 0.45s 0.24s ease both; }
-
-    /* ── VALIDATION ERROR ── */
-    .field-error {
-      font-size: 12px;
-      color: var(--red);
-      margin-top: 4px;
-      display: none;
-    }
-
-    input.invalid, select.invalid {
-      border-color: var(--red);
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BlowUp — Go Viral With AI</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: rgba(255,255,255,0.07);
+    --accent: #b96ef7;
+    --accent2: #6e8fff;
+    --accent3: #f76eb9;
+    --text: #f0eeff;
+    --muted: #7a7a9a;
+    --glow: rgba(185,110,247,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* LAYOUT */
+  .app { display: flex; height: 100vh; overflow: hidden; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 28px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .sidebar::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(185,110,247,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .logo {
+    padding: 0 24px 32px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .nav-section {
+    padding: 0 12px;
+    flex: 1;
+  }
+  .nav-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 12px 10px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+    transition: all 0.2s;
+    margin-bottom: 2px;
+  }
+  .nav-item:hover { background: var(--surface2); color: var(--text); }
+  .nav-item.active {
+    background: linear-gradient(135deg, rgba(185,110,247,0.15), rgba(110,143,255,0.1));
+    color: var(--text);
+    border: 1px solid rgba(185,110,247,0.2);
+  }
+  .nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
+  .nav-badge {
+    margin-left: auto;
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 20px;
+  }
+
+  .sidebar-bottom {
+    padding: 16px 24px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+  .plan-badge {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .plan-badge strong { display: block; font-size: 13px; margin-bottom: 4px; font-family: 'Syne', sans-serif; }
+  .upgrade-btn {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  .upgrade-btn:hover { background: rgba(255,255,255,0.25); }
+
+  /* MAIN */
+  .main {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .main::-webkit-scrollbar { width: 4px; }
+  .main::-webkit-scrollbar-track { background: transparent; }
+  .main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* TOP BAR */
+  .topbar {
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    flex-shrink: 0;
+  }
+  .topbar-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; }
+  .topbar-actions { display: flex; gap: 10px; align-items: center; }
+  .btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  /* CONTENT */
+  .content { padding: 32px; flex: 1; }
+
+  /* SCREENS */
+  .screen { display: none; animation: fadeIn 0.3s ease; }
+  .screen.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* PROFILE SCREEN */
+  .profile-header {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .profile-connect {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .platform-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .platform-btn:hover { border-color: var(--accent); background: rgba(185,110,247,0.08); }
+  .platform-btn.connected { border-color: rgba(100,220,100,0.3); background: rgba(100,220,100,0.06); }
+
+  .input-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .input-field {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .input-field:focus { border-color: var(--accent); }
+  .input-field::placeholder { color: var(--muted); }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+  }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .stat-value { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; }
+  .stat-change { font-size: 12px; margin-top: 4px; }
+  .stat-change.up { color: #5dde8a; }
+  .stat-change.down { color: #f76e6e; }
+
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .analysis-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .analysis-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag.strength { background: rgba(93,222,138,0.12); color: #5dde8a; border: 1px solid rgba(93,222,138,0.2); }
+  .tag.weakness { background: rgba(247,110,110,0.12); color: #f76e6e; border: 1px solid rgba(247,110,110,0.2); }
+  .tag.opportunity { background: rgba(185,110,247,0.12); color: var(--accent); border: 1px solid rgba(185,110,247,0.2); }
+
+  /* IDEAS SCREEN */
+  .ideas-filter {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .filter-chip {
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .filter-chip:hover, .filter-chip.active {
+    background: rgba(185,110,247,0.15);
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .ideas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .idea-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .idea-card:hover { border-color: rgba(185,110,247,0.4); transform: translateY(-2px); }
+  .idea-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .idea-card:hover::before { opacity: 1; }
+
+  .idea-format {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .idea-format-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .idea-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; line-height: 1.4; margin-bottom: 10px; }
+  .idea-hook { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 14px; }
+  .idea-footer { display: flex; justify-content: space-between; align-items: center; }
+  .viral-score {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #f7c96e;
+  }
+  .idea-action {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* SCRIPTS SCREEN */
+  .script-builder {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 20px;
+    height: calc(100vh - 160px);
+  }
+  .script-config {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    overflow-y: auto;
+  }
+  .script-config h3 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 18px; }
+  .form-group { margin-bottom: 16px; }
+  .form-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+  .select-field {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+  }
+  .textarea-field {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    resize: none;
+    line-height: 1.5;
+    transition: border-color 0.2s;
+  }
+  .textarea-field:focus { border-color: var(--accent); }
+  .textarea-field::placeholder { color: var(--muted); }
+
+  .script-output {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+  }
+  .script-output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  .script-output-header h3 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; }
+  .script-body {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    color: var(--text);
+  }
+  .script-body::-webkit-scrollbar { width: 4px; }
+  .script-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .script-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--muted);
+    text-align: center;
+    gap: 12px;
+  }
+  .script-placeholder-icon { font-size: 40px; opacity: 0.5; }
+
+  .script-sections { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .section-tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .section-tag.hook { background: rgba(247,110,185,0.15); color: var(--accent3); }
+  .section-tag.body { background: rgba(110,143,255,0.15); color: var(--accent2); }
+  .section-tag.cta { background: rgba(185,110,247,0.15); color: var(--accent); }
+
+  /* VIDEO ANALYSIS */
+  .video-drop {
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+    padding: 60px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 24px;
+  }
+  .video-drop:hover { border-color: var(--accent); background: rgba(185,110,247,0.04); }
+  .video-drop-icon { font-size: 48px; margin-bottom: 12px; }
+  .video-drop h3 { font-family: 'Syne', sans-serif; font-size: 16px; margin-bottom: 6px; }
+  .video-drop p { color: var(--muted); font-size: 13px; }
+
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .metric-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .metric-title { font-size: 12px; color: var(--muted); }
+  .metric-score {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .metric-score.high { color: #5dde8a; }
+  .metric-score.mid { color: #f7c96e; }
+  .metric-score.low { color: #f76e6e; }
+  .progress-bar {
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease;
+  }
+  .progress-fill.high { background: linear-gradient(90deg, #5dde8a, #2bb55e); }
+  .progress-fill.mid { background: linear-gradient(90deg, #f7c96e, #e89c20); }
+  .progress-fill.low { background: linear-gradient(90deg, #f76e6e, #d93a3a); }
+  .metric-note { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* REPOST */
+  .repost-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  .queue-list { display: flex; flex-direction: column; gap: 12px; }
+  .queue-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: border-color 0.2s;
+  }
+  .queue-item:hover { border-color: rgba(185,110,247,0.3); }
+  .queue-thumb {
+    width: 48px; height: 48px;
+    border-radius: 8px;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .queue-info { flex: 1; }
+  .queue-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+  .queue-meta { font-size: 11px; color: var(--muted); }
+  .queue-platforms { display: flex; gap: 4px; }
+  .platform-dot {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .platform-dot:hover { border-color: var(--accent); background: rgba(185,110,247,0.1); }
+  .platform-dot.active { background: rgba(185,110,247,0.2); border-color: var(--accent); }
+  .queue-status {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .queue-status.scheduled { background: rgba(110,143,255,0.15); color: var(--accent2); }
+  .queue-status.posted { background: rgba(93,222,138,0.15); color: #5dde8a; }
+  .queue-status.pending { background: rgba(247,201,110,0.15); color: #f7c96e; }
+
+  .repost-config {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    height: fit-content;
+  }
+  .repost-config h3 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 20px; }
+  .toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .toggle-row:last-of-type { border-bottom: none; }
+  .toggle-label { font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .toggle {
+    width: 40px; height: 22px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .toggle.on { background: var(--accent); border-color: var(--accent); }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: white;
+    top: 2px; left: 2px;
+    transition: transform 0.2s;
+  }
+  .toggle.on::after { transform: translateX(18px); }
+
+  /* LOADING SPINNER */
+  .spinner {
+    width: 20px; height: 20px;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* LOADING STATE */
+  .loading-overlay {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .loading-overlay.visible { display: flex; }
+
+  /* AI RESPONSE STREAM */
+  .ai-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(185,110,247,0.1);
+    border: 1px solid rgba(185,110,247,0.2);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .ai-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(0.7); } }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .section-header h2 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; }
+  .section-sub { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+  /* SCROLLBAR */
+  .script-config::-webkit-scrollbar { width: 4px; }
+  .script-config::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .analysis-grid { grid-template-columns: 1fr; }
+    .ideas-grid { grid-template-columns: repeat(2, 1fr); }
+    .script-builder { grid-template-columns: 1fr; height: auto; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .repost-layout { grid-template-columns: 1fr; }
+  }
+
+  /* TYPING CURSOR */
+  .cursor { display: inline-block; width: 2px; height: 14px; background: var(--accent); margin-left: 2px; animation: blink 0.8s step-end infinite; vertical-align: text-bottom; }
+  @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+</style>
 </head>
 <body>
 
-<header>
-  <div class="logo-wrap">
-    <img src="logo.png" alt="Elevator Pitch Agency logo">
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">⚡</div>
+      BlowUp
+    </div>
+    <nav class="nav-section">
+      <div class="nav-label">Analyze</div>
+      <div class="nav-item active" onclick="showScreen('profile', this)">
+        <span class="icon">👤</span> Profile
+      </div>
+      <div class="nav-item" onclick="showScreen('videos', this)">
+        <span class="icon">🎬</span> Videos
+      </div>
+
+      <div class="nav-label" style="margin-top:20px;">Create</div>
+      <div class="nav-item" onclick="showScreen('ideas', this)">
+        <span class="icon">💡</span> Ideas
+        <span class="nav-badge">AI</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('scripts', this)">
+        <span class="icon">📝</span> Scripts
+        <span class="nav-badge">AI</span>
+      </div>
+
+      <div class="nav-label" style="margin-top:20px;">Distribute</div>
+      <div class="nav-item" onclick="showScreen('repost', this)">
+        <span class="icon">🔁</span> Repost
+      </div>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="plan-badge">
+        <strong>Free Plan</strong>
+        5 AI credits left
+        <button class="upgrade-btn">Upgrade to Pro</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="screen-title">Profile Analysis</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost">Help</button>
+        <button class="btn btn-primary" onclick="runAnalysis()">⚡ Analyze Now</button>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- PROFILE SCREEN -->
+      <div id="screen-profile" class="screen active">
+        <div class="profile-header">
+          <div class="section-header">
+            <div>
+              <h2>Connect Your Account</h2>
+              <div class="section-sub">Link your social profiles for AI-powered growth analysis</div>
+            </div>
+          </div>
+          <div class="profile-connect">
+            <button class="platform-btn connected">🎵 TikTok <span style="color:#5dde8a;font-size:11px;margin-left:4px;">Connected</span></button>
+            <button class="platform-btn">📸 Instagram</button>
+            <button class="platform-btn">▶️ YouTube</button>
+            <button class="platform-btn">👍 Facebook</button>
+          </div>
+          <div class="input-row">
+            <input class="input-field" id="handle-input" placeholder="@your_handle or paste profile URL" />
+            <button class="btn btn-primary" onclick="analyzeProfile()">Analyze Profile</button>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="stats-section" style="display:none;">
+          <div class="stat-card">
+            <div class="stat-label">Followers</div>
+            <div class="stat-value" id="stat-followers">—</div>
+            <div class="stat-change up" id="stat-followers-change"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg Views</div>
+            <div class="stat-value" id="stat-views">—</div>
+            <div class="stat-change up" id="stat-views-change"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Eng. Rate</div>
+            <div class="stat-value" id="stat-eng">—</div>
+            <div class="stat-change" id="stat-eng-change"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Viral Score</div>
+            <div class="stat-value" id="stat-viral">—</div>
+            <div class="stat-change up" id="stat-viral-change"></div>
+          </div>
+        </div>
+
+        <div class="loading-overlay" id="profile-loading">
+          <div class="spinner"></div> AI is analyzing your profile...
+        </div>
+
+        <div class="analysis-grid" id="analysis-section" style="display:none;">
+          <div class="analysis-card">
+            <h3>💪 Strengths</h3>
+            <div class="tag-list" id="strengths-list"></div>
+          </div>
+          <div class="analysis-card">
+            <h3>⚠️ Growth Gaps</h3>
+            <div class="tag-list" id="weaknesses-list"></div>
+          </div>
+          <div class="analysis-card" style="grid-column:1/-1;">
+            <h3>🚀 Opportunities</h3>
+            <div class="tag-list" id="opportunities-list"></div>
+          </div>
+          <div class="analysis-card" style="grid-column:1/-1;">
+            <div class="ai-tag"><div class="ai-dot"></div> AI Insight</div>
+            <div id="ai-insight" style="font-size:13px;line-height:1.8;color:var(--text);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDEAS SCREEN -->
+      <div id="screen-ideas" class="screen">
+        <div class="section-header">
+          <div>
+            <h2>Content Ideas</h2>
+            <div class="section-sub">AI-generated ideas tailored to your niche and audience</div>
+          </div>
+          <button class="btn btn-primary" onclick="generateIdeas()">⚡ Generate New Ideas</button>
+        </div>
+
+        <div class="ideas-filter">
+          <div class="filter-chip active" onclick="filterIdea(this,'all')">All Formats</div>
+          <div class="filter-chip" onclick="filterIdea(this,'hook')">Hook Video</div>
+          <div class="filter-chip" onclick="filterIdea(this,'story')">Storytelling</div>
+          <div class="filter-chip" onclick="filterIdea(this,'tutorial')">Tutorial</div>
+          <div class="filter-chip" onclick="filterIdea(this,'trending')">Trending</div>
+          <div class="filter-chip" onclick="filterIdea(this,'pov')">POV</div>
+        </div>
+
+        <div class="loading-overlay" id="ideas-loading">
+          <div class="spinner"></div> Generating ideas for your niche...
+        </div>
+
+        <div class="ideas-grid" id="ideas-grid"></div>
+      </div>
+
+      <!-- SCRIPTS SCREEN -->
+      <div id="screen-scripts" class="screen">
+        <div class="section-header">
+          <div>
+            <h2>Script Generator</h2>
+            <div class="section-sub">Auto-generate platform-ready video scripts</div>
+          </div>
+        </div>
+
+        <div class="script-builder">
+          <div class="script-config">
+            <h3>Script Settings</h3>
+            <div class="form-group">
+              <label class="form-label">Topic / Idea</label>
+              <textarea class="textarea-field" id="script-topic" rows="3" placeholder="e.g. 5 things nobody tells you about morning routines..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Platform</label>
+              <select class="select-field" id="script-platform">
+                <option>TikTok (15-60s)</option>
+                <option>Instagram Reel (30-90s)</option>
+                <option>YouTube Shorts (60s)</option>
+                <option>YouTube Long-form (5-15min)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tone</label>
+              <select class="select-field" id="script-tone">
+                <option>Educational</option>
+                <option>Entertaining</option>
+                <option>Inspirational</option>
+                <option>Controversial / Debate</option>
+                <option>Storytelling</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Target Audience</label>
+              <input class="input-field" id="script-audience" placeholder="e.g. entrepreneurs, 20-35 year olds" style="width:100%" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">CTA Goal</label>
+              <select class="select-field" id="script-cta">
+                <option>Follow / Subscribe</option>
+                <option>Comment engagement</option>
+                <option>Click link in bio</option>
+                <option>Share / Save</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" style="width:100%;margin-top:8px;padding:12px;" onclick="generateScript()">
+              ⚡ Generate Script
+            </button>
+          </div>
+          <div class="script-output">
+            <div class="script-output-header">
+              <h3>Generated Script</h3>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-ghost" style="font-size:12px;padding:6px 12px;" onclick="copyScript()">Copy</button>
+                <button class="btn btn-ghost" style="font-size:12px;padding:6px 12px;" onclick="regenerateScript()">Regenerate</button>
+              </div>
+            </div>
+            <div class="script-body" id="script-output">
+              <div class="script-placeholder">
+                <div class="script-placeholder-icon">📝</div>
+                <div>Fill in the settings and hit Generate to create your script</div>
+              </div>
+            </div>
+            <div class="script-sections" id="script-sections" style="display:none;">
+              <span class="section-tag hook">HOOK</span>
+              <span class="section-tag body">BODY</span>
+              <span class="section-tag cta">CTA</span>
+              <span style="margin-left:auto;font-size:11px;color:var(--muted);" id="word-count"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIDEO ANALYSIS SCREEN -->
+      <div id="screen-videos" class="screen">
+        <div class="section-header">
+          <div>
+            <h2>Video Analysis</h2>
+            <div class="section-sub">Understand what's working and why</div>
+          </div>
+          <button class="btn btn-primary" onclick="analyzeVideo()">Analyze My Videos</button>
+        </div>
+
+        <div class="video-drop" onclick="analyzeVideo()">
+          <div class="video-drop-icon">🎬</div>
+          <h3>Paste a video URL or upload</h3>
+          <p>TikTok, Instagram Reel, YouTube Short — any platform</p>
+          <div style="margin-top:16px;">
+            <input class="input-field" id="video-url" placeholder="https://tiktok.com/@user/video/..." style="max-width:400px;" onclick="event.stopPropagation()" />
+          </div>
+        </div>
+
+        <div class="loading-overlay" id="video-loading">
+          <div class="spinner"></div> AI is analyzing your video...
+        </div>
+
+        <div id="video-results" style="display:none;">
+          <div class="metrics-grid" id="metrics-grid"></div>
+          <div class="analysis-card" style="margin-top:16px;">
+            <div class="ai-tag"><div class="ai-dot"></div> AI Recommendations</div>
+            <div id="video-recommendations" style="font-size:13px;line-height:1.8;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REPOST SCREEN -->
+      <div id="screen-repost" class="screen">
+        <div class="section-header">
+          <div>
+            <h2>Auto-Repost</h2>
+            <div class="section-sub">Cross-post your content automatically across platforms</div>
+          </div>
+          <button class="btn btn-primary" onclick="addToQueue()">+ Add Video</button>
+        </div>
+
+        <div class="repost-layout">
+          <div>
+            <div style="margin-bottom:14px;font-size:12px;color:var(--muted);">REPOST QUEUE</div>
+            <div class="queue-list" id="queue-list"></div>
+          </div>
+          <div>
+            <div class="repost-config">
+              <h3>Platform Settings</h3>
+              <div id="platform-toggles"></div>
+              <button class="btn btn-primary" style="width:100%;margin-top:20px;padding:12px;" onclick="runRepost()">
+                🔁 Run Repost Queue
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <h1>Marketing <em>Performance</em> Audit</h1>
-  <p>Get a clear breakdown of your marketing performance and a strategic growth plan in under 60 seconds.</p>
-</header>
-
-<main>
-  <form id="auditForm" novalidate>
-
-    <div class="card">
-      <h2>Business Details</h2>
-      <div class="fields">
-        <div class="field-group">
-          <label for="bizName">Business Name <span style="color:var(--red)">*</span></label>
-          <input type="text" id="bizName" placeholder="Acme Corp" autocomplete="organization" />
-          <div class="field-error" id="err-bizName">Please enter your business name.</div>
-        </div>
-        <div class="field-group">
-          <label for="website">Website URL</label>
-          <input type="url" id="website" placeholder="https://yoursite.com" autocomplete="url" />
-        </div>
-        <div class="field-group">
-          <label for="industry">Industry <span style="color:var(--red)">*</span></label>
-          <select id="industry">
-            <option value="" disabled selected>Select industry</option>
-            <option>E-commerce</option>
-            <option>SaaS / Software</option>
-            <option>Professional Services</option>
-            <option>Healthcare</option>
-            <option>Real Estate</option>
-            <option>Food & Beverage</option>
-            <option>Fitness & Wellness</option>
-            <option>Education</option>
-            <option>Finance & Insurance</option>
-            <option>Construction & Trades</option>
-            <option>Media & Entertainment</option>
-            <option>Non-profit</option>
-            <option>Other</option>
-          </select>
-          <div class="field-error" id="err-industry">Please select an industry.</div>
-        </div>
-        <div class="field-group">
-          <label for="budget">Monthly Marketing Budget</label>
-          <div class="budget-display" id="budgetDisplay">$2,500</div>
-          <input type="range" id="budget" min="500" max="10000" step="500" value="2500" />
-          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:var(--gray)">
-            <span>$500</span><span>$10,000</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Marketing Health Check</h2>
-      <div class="questions">
-        <div class="question-row">
-          <div class="question-text">Do you currently run paid ads (Google, Meta, etc.)?</div>
-          <div class="toggle-group" data-q="ads">
-            <button type="button" class="toggle-btn" data-val="yes">Yes</button>
-            <button type="button" class="toggle-btn" data-val="no">No</button>
-          </div>
-        </div>
-        <div class="question-row">
-          <div class="question-text">Do you post content consistently (at least weekly)?</div>
-          <div class="toggle-group" data-q="posting">
-            <button type="button" class="toggle-btn" data-val="yes">Yes</button>
-            <button type="button" class="toggle-btn" data-val="no">No</button>
-          </div>
-        </div>
-        <div class="question-row">
-          <div class="question-text">Do you actively collect leads (email list, CRM, forms)?</div>
-          <div class="toggle-group" data-q="leads">
-            <button type="button" class="toggle-btn" data-val="yes">Yes</button>
-            <button type="button" class="toggle-btn" data-val="no">No</button>
-          </div>
-        </div>
-        <div class="question-row">
-          <div class="question-text">Do you run retargeting ads (past visitors / warm audiences)?</div>
-          <div class="toggle-group" data-q="retargeting">
-            <button type="button" class="toggle-btn" data-val="yes">Yes</button>
-            <button type="button" class="toggle-btn" data-val="no">No</button>
-          </div>
-        </div>
-        <div class="question-row">
-          <div class="question-text">Do you track analytics and review them regularly?</div>
-          <div class="toggle-group" data-q="analytics">
-            <button type="button" class="toggle-btn" data-val="yes">Yes</button>
-            <button type="button" class="toggle-btn" data-val="no">No</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="submit-wrap">
-      <button type="submit" class="audit-btn" id="submitBtn">
-        Generate My Marketing Audit →
-      </button>
-    </div>
-  </form>
-
-  <section id="results" aria-live="polite">
-    <div class="results-header fade-up">
-      <h2>Your Marketing Audit</h2>
-      <p id="resultsSubtitle">Here's what we found for <strong id="resultsName"></strong></p>
-    </div>
-
-    <div class="score-card fade-up-2">
-      <div class="score-label">Marketing Score</div>
-      <div class="score-ring-wrap">
-        <svg class="score-ring" viewBox="0 0 120 120">
-          <circle class="track" cx="60" cy="60" r="55"/>
-          <circle class="fill" id="scoreFill" cx="60" cy="60" r="55"/>
-        </svg>
-        <div class="score-number" id="scoreNumber">0<span>/100</span></div>
-      </div>
-      <div class="score-grade" id="scoreGrade"></div>
-      <div class="score-sub" id="scoreSub"></div>
-    </div>
-
-    <div class="two-col fade-up-3">
-      <div class="result-card">
-        <h3 class="issues">Top 3 Issues</h3>
-        <div class="result-list" id="issuesList"></div>
-      </div>
-      <div class="result-card">
-        <h3 class="wins">3 Quick Wins</h3>
-        <div class="result-list" id="winsList"></div>
-      </div>
-    </div>
-
-    <div class="result-card fade-up-4" style="margin-bottom:20px">
-      <h3 style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);margin-bottom:18px">
-        Recommended Package
-      </h3>
-      <div class="packages" id="packagesGrid"></div>
-    </div>
-
-    <div class="reset-wrap fade-up-4">
-      <button class="reset-btn" id="resetBtn">← Start a New Audit</button>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <strong>Elevator Pitch Agency</strong> — Marketing Performance Audit &nbsp;·&nbsp;
-  <a href="mailto:elevatorpitchagency@outlook.com">elevatorpitchagency@outlook.com</a>
-</footer>
+</div>
 
 <script>
-  const budgetSlider = document.getElementById('budget');
-  const budgetDisplay = document.getElementById('budgetDisplay');
+// ============================================================
+// NAV
+// ============================================================
+const titles = {
+  profile: 'Profile Analysis',
+  ideas: 'Content Ideas',
+  scripts: 'Script Generator',
+  videos: 'Video Analysis',
+  repost: 'Auto-Repost'
+};
 
-  function updateBudgetSlider() {
-    const val = parseInt(budgetSlider.value);
-    const min = parseInt(budgetSlider.min);
-    const max = parseInt(budgetSlider.max);
-    const pct = ((val - min) / (max - min)) * 100;
-    budgetSlider.style.background =
-      `linear-gradient(to right, var(--accent) ${pct}%, var(--accent) ${pct}%, var(--border) ${pct}%, var(--border) 100%)`;
-    budgetDisplay.textContent = '$' + val.toLocaleString();
-  }
+function showScreen(name, el) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  el.classList.add('active');
+  document.getElementById('screen-title').textContent = titles[name];
+  if (name === 'ideas' && document.getElementById('ideas-grid').children.length === 0) generateIdeas();
+  if (name === 'repost') renderRepostQueue();
+}
 
-  budgetSlider.addEventListener('input', updateBudgetSlider);
-  updateBudgetSlider();
-
-  const answers = {};
-
-  document.querySelectorAll('.toggle-group').forEach(group => {
-    group.querySelectorAll('.toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const q = group.dataset.q;
-        const val = btn.dataset.val;
-
-        group.querySelectorAll('.toggle-btn').forEach(b => {
-          b.classList.remove('active-yes', 'active-no');
-        });
-
-        btn.classList.add(val === 'yes' ? 'active-yes' : 'active-no');
-        answers[q] = val;
-      });
-    });
+// ============================================================
+// CLAUDE API CALL
+// ============================================================
+async function callClaude(prompt) {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: prompt }]
+    })
   });
+  const data = await res.json();
+  return data.content?.[0]?.text || '';
+}
 
-  function validate() {
-    let valid = true;
+// ============================================================
+// PROFILE ANALYSIS
+// ============================================================
+async function analyzeProfile() {
+  const handle = document.getElementById('handle-input').value.trim() || '@history_time';
+  document.getElementById('profile-loading').classList.add('visible');
+  document.getElementById('stats-section').style.display = 'none';
+  document.getElementById('analysis-section').style.display = 'none';
 
-    const bizName = document.getElementById('bizName');
-    const industry = document.getElementById('industry');
-    const errBiz = document.getElementById('err-bizName');
-    const errInd = document.getElementById('err-industry');
+  const prompt = `You are an expert social media growth analyst. Analyze the TikTok/Instagram profile "${handle}" and return a JSON object with:
+{
+  "followers": "number with K/M suffix",
+  "avg_views": "number with K/M suffix",
+  "engagement_rate": "percentage",
+  "viral_score": "number 1-100",
+  "followers_change": "+X.X% this month",
+  "views_change": "+X.X% this week",
+  "eng_change": "direction and %",
+  "viral_change": "short descriptor",
+  "strengths": ["array of 5 short strength labels"],
+  "weaknesses": ["array of 4 short growth gap labels"],
+  "opportunities": ["array of 6 short opportunity labels"],
+  "insight": "2-3 sentences of sharp AI growth insight for this creator. Be specific and actionable."
+}
+Return ONLY the JSON object, no markdown.`;
 
-    if (!bizName.value.trim()) {
-      bizName.classList.add('invalid');
-      errBiz.style.display = 'block';
-      valid = false;
-    } else {
-      bizName.classList.remove('invalid');
-      errBiz.style.display = 'none';
-    }
+  try {
+    const raw = await callClaude(prompt);
+    const d = JSON.parse(raw.replace(/```json|```/g, '').trim());
 
-    if (!industry.value) {
-      industry.classList.add('invalid');
-      errInd.style.display = 'block';
-      valid = false;
-    } else {
-      industry.classList.remove('invalid');
-      errInd.style.display = 'none';
-    }
+    document.getElementById('stat-followers').textContent = d.followers;
+    document.getElementById('stat-views').textContent = d.avg_views;
+    document.getElementById('stat-eng').textContent = d.engagement_rate;
+    document.getElementById('stat-viral').textContent = d.viral_score;
+    document.getElementById('stat-followers-change').textContent = d.followers_change;
+    document.getElementById('stat-followers-change').className = 'stat-change up';
+    document.getElementById('stat-views-change').textContent = d.views_change;
+    document.getElementById('stat-eng-change').textContent = d.eng_change;
+    document.getElementById('stat-viral-change').textContent = d.viral_change;
 
-    return valid;
+    renderTags('strengths-list', d.strengths, 'strength');
+    renderTags('weaknesses-list', d.weaknesses, 'weakness');
+    renderTags('opportunities-list', d.opportunities, 'opportunity');
+    document.getElementById('ai-insight').textContent = d.insight;
+
+    document.getElementById('stats-section').style.display = 'grid';
+    document.getElementById('analysis-section').style.display = 'grid';
+  } catch(e) {
+    alert('API error — check your connection.');
   }
+  document.getElementById('profile-loading').classList.remove('visible');
+}
 
-  ['bizName', 'industry'].forEach(id => {
-    document.getElementById(id).addEventListener('change', validate);
+function renderTags(id, items, cls) {
+  const el = document.getElementById(id);
+  el.innerHTML = items.map(i => `<span class="tag ${cls}">${i}</span>`).join('');
+}
+
+function runAnalysis() {
+  const active = document.querySelector('.nav-item.active .icon');
+  if (active) {
+    const txt = active.nextSibling.textContent.trim();
+    if (txt === 'Profile') analyzeProfile();
+    else if (txt === 'Ideas') generateIdeas();
+    else if (txt === 'Scripts') generateScript();
+    else if (txt === 'Videos') analyzeVideo();
+  }
+}
+
+// ============================================================
+// IDEAS
+// ============================================================
+let currentIdeas = [];
+
+async function generateIdeas() {
+  document.getElementById('ideas-loading').classList.add('visible');
+  document.getElementById('ideas-grid').innerHTML = '';
+
+  const prompt = `You are a viral content strategist for TikTok and Instagram. Generate 9 high-viral-potential content ideas for a lifestyle/entrepreneur niche creator.
+Return ONLY a JSON array of 9 objects:
+[{
+  "format": "Hook Video|Storytelling|Tutorial|Trending|POV|List",
+  "title": "compelling video title",
+  "hook": "the opening hook line (first 3 seconds)",
+  "viral_score": number between 70-99
+}]
+Make them diverse, creative, and scroll-stopping. No markdown.`;
+
+  try {
+    const raw = await callClaude(prompt);
+    const ideas = JSON.parse(raw.replace(/```json|```/g, '').trim());
+    currentIdeas = ideas;
+    renderIdeas(ideas);
+  } catch(e) {
+    document.getElementById('ideas-grid').innerHTML = '<div style="color:var(--muted);padding:20px;">Could not load ideas. Check API.</div>';
+  }
+  document.getElementById('ideas-loading').classList.remove('visible');
+}
+
+function renderIdeas(ideas) {
+  const grid = document.getElementById('ideas-grid');
+  grid.innerHTML = ideas.map((idea, i) => `
+    <div class="idea-card" onclick="useIdea(${i})">
+      <div class="idea-format"><div class="idea-format-dot"></div>${idea.format.toUpperCase()}</div>
+      <div class="idea-title">${idea.title}</div>
+      <div class="idea-hook">"${idea.hook}"</div>
+      <div class="idea-footer">
+        <div class="viral-score">⚡ ${idea.viral_score}% viral</div>
+        <div class="idea-action">Use this idea →</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterIdea(el, type) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  if (type === 'all') { renderIdeas(currentIdeas); return; }
+  const filtered = currentIdeas.filter(i => i.format.toLowerCase().includes(type));
+  renderIdeas(filtered.length ? filtered : currentIdeas);
+}
+
+function useIdea(i) {
+  const idea = currentIdeas[i];
+  showScreen('scripts', document.querySelector('.nav-item:nth-child(4)'));
+  document.getElementById('script-topic').value = idea.title;
+}
+
+// ============================================================
+// SCRIPT GENERATOR
+// ============================================================
+let lastScript = '';
+
+async function generateScript() {
+  const topic = document.getElementById('script-topic').value.trim();
+  if (!topic) { alert('Enter a topic first.'); return; }
+
+  const platform = document.getElementById('script-platform').value;
+  const tone = document.getElementById('script-tone').value;
+  const audience = document.getElementById('script-audience').value || 'general audience';
+  const cta = document.getElementById('script-cta').value;
+
+  const output = document.getElementById('script-output');
+  output.innerHTML = '<div class="loading-overlay visible"><div class="spinner"></div> Writing your script...</div>';
+  document.getElementById('script-sections').style.display = 'none';
+
+  const prompt = `Write a complete, ready-to-film video script for ${platform}.
+Topic: ${topic}
+Tone: ${tone}
+Target audience: ${audience}
+CTA goal: ${cta}
+
+Structure the script with clear sections:
+[HOOK] — the first 3 seconds (must stop the scroll)
+[BODY] — the main content, broken into numbered beats
+[CTA] — the closing call to action
+
+Include:
+- Exact words to say (not summaries)
+- Stage directions in (parentheses)
+- Estimated timing for each section
+- Camera/visual notes where relevant
+
+Make it punchy, engaging, and platform-native. No markdown headers, just the formatted script.`;
+
+  try {
+    const script = await callClaude(prompt);
+    lastScript = script;
+    output.textContent = script;
+    const words = script.split(/\s+/).length;
+    document.getElementById('word-count').textContent = `~${words} words`;
+    document.getElementById('script-sections').style.display = 'flex';
+  } catch(e) {
+    output.innerHTML = '<div style="color:var(--muted);padding:20px;">Script generation failed. Check API.</div>';
+  }
+}
+
+function copyScript() {
+  if (!lastScript) return;
+  navigator.clipboard.writeText(lastScript).then(() => {
+    const btn = event.target;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
   });
+}
 
-  const QUESTION_WEIGHTS = {
-    ads:         { yes: 20, no: 0 },
-    posting:     { yes: 20, no: 0 },
-    leads:       { yes: 20, no: 0 },
-    retargeting: { yes: 20, no: 0 },
-    analytics:   { yes: 20, no: 0 },
-  };
+function regenerateScript() { generateScript(); }
 
-  const ISSUES_DB = {
-    ads:         "No paid advertising – you're missing a scalable, trackable acquisition channel.",
-    posting:     "Inconsistent content – irregular posting erodes trust and organic reach.",
-    leads:       "No lead capture system – visitors leave with no way to re-engage them.",
-    retargeting: "No retargeting – warm audiences who visited your site are going cold.",
-    analytics:   "No analytics review – you can't improve what you don't measure.",
-  };
+// ============================================================
+// VIDEO ANALYSIS
+// ============================================================
+async function analyzeVideo() {
+  const url = document.getElementById('video-url').value.trim() || 'https://tiktok.com/@sample/video/12345';
+  document.getElementById('video-loading').classList.add('visible');
+  document.getElementById('video-results').style.display = 'none';
 
-  const WINS_DB = {
-    ads:         "Launch a small test campaign ($15–$30/day) on your highest-intent platform.",
-    posting:     "Create a 4-week content calendar and batch-produce posts in one sitting.",
-    leads:       "Add a lead magnet (checklist, free consult, discount) with a simple opt-in form.",
-    retargeting: "Install the Meta Pixel and Google Tag — start a 14-day retargeting campaign.",
-    analytics:   "Set up a Google Analytics 4 property and review traffic sources weekly.",
-  };
+  const prompt = `You are a viral content analyst. Analyze this video URL: ${url}
+Return ONLY a JSON object:
+{
+  "metrics": [
+    { "title": "Hook Score", "score": number_1_to_100, "note": "one line insight" },
+    { "title": "Retention Rate", "score": number_1_to_100, "note": "one line insight" },
+    { "title": "Engagement", "score": number_1_to_100, "note": "one line insight" },
+    { "title": "Audio Impact", "score": number_1_to_100, "note": "one line insight" },
+    { "title": "Visual Appeal", "score": number_1_to_100, "note": "one line insight" },
+    { "title": "Viral Potential", "score": number_1_to_100, "note": "one line insight" }
+  ],
+  "recommendations": "3-4 specific, actionable recommendations to improve this video's performance. Be direct and tactical."
+}
+No markdown.`;
 
-  const POSITIVE_WINS = [
-    "A/B test your best-performing ad creative to double down on what's working.",
-    "Nurture your email list with a 5-part welcome sequence to convert more leads.",
-    "Expand retargeting to YouTube and LinkedIn for multi-channel touchpoints.",
-    "Build a referral incentive programme to turn happy clients into brand advocates.",
-    "Run a quarterly competitor audit and benchmark your positioning.",
-    "Create a case study from your top client result to add social proof.",
-  ];
-
-  function computeScore(ans, budget) {
-    let base = 0;
-    const questions = ['ads', 'posting', 'leads', 'retargeting', 'analytics'];
-
-    questions.forEach(q => {
-      if (ans[q] === 'yes') base += QUESTION_WEIGHTS[q].yes;
-    });
-
-    const budgetBonus = Math.min(10, Math.floor((budget - 500) / 950));
-    return Math.min(100, base + budgetBonus);
+  try {
+    const raw = await callClaude(prompt);
+    const d = JSON.parse(raw.replace(/```json|```/g, '').trim());
+    renderMetrics(d.metrics);
+    document.getElementById('video-recommendations').textContent = d.recommendations;
+    document.getElementById('video-results').style.display = 'block';
+  } catch(e) {
+    alert('Analysis failed. Check API.');
   }
+  document.getElementById('video-loading').classList.remove('visible');
+}
 
-  function getGrade(score) {
-    if (score >= 85) return { grade: 'Excellent', sub: 'Your marketing is firing on all cylinders.' };
-    if (score >= 65) return { grade: 'Good', sub: 'Solid foundations — a few gaps to close.' };
-    if (score >= 40) return { grade: 'Fair', sub: 'Key systems are missing — room to grow.' };
-    return { grade: 'Needs Work', sub: 'Critical gaps are costing you leads.' };
-  }
+function renderMetrics(metrics) {
+  document.getElementById('metrics-grid').innerHTML = metrics.map(m => {
+    const cls = m.score >= 75 ? 'high' : m.score >= 50 ? 'mid' : 'low';
+    return `
+      <div class="metric-card">
+        <div class="metric-header">
+          <div class="metric-title">${m.title}</div>
+        </div>
+        <div class="metric-score ${cls}">${m.score}</div>
+        <div class="progress-bar"><div class="progress-fill ${cls}" style="width:${m.score}%"></div></div>
+        <div class="metric-note">${m.note}</div>
+      </div>`;
+  }).join('');
+}
 
-  function getPackage(score, budget) {
-    if (score >= 70 || budget >= 7000) return 'authority';
-    if (score >= 40 || budget >= 3000) return 'growth';
-    return 'starter';
-  }
+// ============================================================
+// REPOST QUEUE
+// ============================================================
+const sampleQueue = [
+  { title: 'Morning routine that changed my life', source: 'TikTok', date: 'Jun 1', emoji: '🌅', status: 'posted' },
+  { title: '5 productivity hacks nobody uses', source: 'TikTok', date: 'Jun 2', emoji: '⚡', status: 'scheduled' },
+  { title: 'My side hustle made $12k in 30 days', source: 'Instagram', date: 'Jun 3', emoji: '💰', status: 'pending' },
+  { title: 'The mindset shift that fixed everything', source: 'YouTube', date: 'Jun 4', emoji: '🧠', status: 'pending' },
+];
 
-  const PACKAGES = {
-    starter: {
-      name: 'Starter',
-      price: '$1,500',
-      desc: '/month',
-      features: [
-        'Social media management (3×/week)',
-        'Basic SEO setup & optimisation',
-        'Monthly performance report',
-        'Lead capture page (1 funnel)',
-        'Email list setup & welcome sequence',
-      ]
-    },
-    growth: {
-      name: 'Growth',
-      price: '$2,500',
-      desc: '/month',
-      features: [
-        'Everything in Starter',
-        'Paid ads management (Google or Meta)',
-        'Retargeting campaign setup',
-        'Bi-weekly strategy calls',
-        'CRM integration & lead nurturing',
-        'A/B testing for ads & landing pages',
-      ]
-    },
-    authority: {
-      name: 'Authority',
-      price: '$3,000',
-      desc: '/month',
-      features: [
-        'Everything in Growth',
-        'Full funnel strategy & build',
-        'Multi-platform paid ads',
-        'Influencer / partnership outreach',
-        'Weekly reporting & insights',
-        'Dedicated account strategist',
-      ]
-    }
-  };
+const platforms = [
+  { name: 'TikTok', icon: '🎵', on: true },
+  { name: 'Instagram', icon: '📸', on: true },
+  { name: 'YouTube', icon: '▶️', on: false },
+  { name: 'Facebook', icon: '👍', on: false },
+];
 
-  function renderResults(bizName, score, ans, budget) {
-    const questions = ['ads', 'posting', 'leads', 'retargeting', 'analytics'];
+function renderRepostQueue() {
+  document.getElementById('queue-list').innerHTML = sampleQueue.map((item, i) => `
+    <div class="queue-item">
+      <div class="queue-thumb">${item.emoji}</div>
+      <div class="queue-info">
+        <div class="queue-title">${item.title}</div>
+        <div class="queue-meta">From ${item.source} · Scheduled ${item.date}</div>
+      </div>
+      <div class="queue-platforms">
+        <div class="platform-dot active" title="TikTok">🎵</div>
+        <div class="platform-dot ${item.status !== 'pending' ? 'active' : ''}" title="Instagram">📸</div>
+        <div class="platform-dot" title="YouTube">▶️</div>
+        <div class="platform-dot" title="Facebook">👍</div>
+      </div>
+      <div class="queue-status ${item.status}">${item.status}</div>
+    </div>
+  `).join('');
 
-    const issueKeys = questions.filter(q => ans[q] === 'no' || !ans[q]);
-    const topIssues = issueKeys.slice(0, 3);
+  document.getElementById('platform-toggles').innerHTML = platforms.map((p, i) => `
+    <div class="toggle-row">
+      <div class="toggle-label">${p.icon} ${p.name}</div>
+      <div class="toggle ${p.on ? 'on' : ''}" id="toggle-${i}" onclick="this.classList.toggle('on')"></div>
+    </div>
+  `).join('');
+}
 
-    const winKeys = issueKeys.slice(0, 3);
-    const quickWins = [];
-    winKeys.forEach(k => quickWins.push(WINS_DB[k]));
+function addToQueue() {
+  const url = prompt('Paste a video URL to add to queue:');
+  if (url) alert('Video added to queue. It will be analyzed and scheduled automatically.');
+}
 
-    let pi = 0;
-    while (quickWins.length < 3) {
-      quickWins.push(POSITIVE_WINS[pi++]);
-    }
+function runRepost() {
+  const btn = event.target;
+  btn.textContent = 'Running...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '✓ All Videos Reposted';
+    setTimeout(() => { btn.textContent = '🔁 Run Repost Queue'; btn.disabled = false; }, 3000);
+  }, 2000);
+}
 
-    const circumference = 345;
-    const offset = circumference - (score / 100) * circumference;
-    setTimeout(() => {
-      document.getElementById('scoreFill').style.strokeDashoffset = offset;
-    }, 80);
-
-    const scoreEl = document.getElementById('scoreNumber');
-    let current = 0;
-    const step = Math.ceil(score / 40);
-    const timer = setInterval(() => {
-      current = Math.min(current + step, score);
-      scoreEl.innerHTML = current + '<span>/100</span>';
-      if (current >= score) clearInterval(timer);
-    }, 30);
-
-    const { grade, sub } = getGrade(score);
-    document.getElementById('scoreGrade').textContent = grade;
-    document.getElementById('scoreSub').textContent = sub;
-    document.getElementById('resultsName').textContent = bizName;
-
-    const issuesList = document.getElementById('issuesList');
-    issuesList.innerHTML = '';
-    if (topIssues.length === 0) {
-      issuesList.innerHTML = '<div class="result-item"><div class="result-icon win">✓</div>No critical issues found — great work!</div>';
-    } else {
-      topIssues.forEach(k => {
-        issuesList.innerHTML += `
-          <div class="result-item">
-            <div class="result-icon issue">!</div>
-            <span>${ISSUES_DB[k]}</span>
-          </div>`;
-      });
-    }
-
-    const winsList = document.getElementById('winsList');
-    winsList.innerHTML = '';
-    quickWins.forEach(w => {
-      winsList.innerHTML += `
-          <div class="result-item">
-            <div class="result-icon win">✓</div>
-            <span>${w}</span>
-          </div>`;
-    });
-
-    const recommended = getPackage(score, budget);
-    const packagesGrid = document.getElementById('packagesGrid');
-    packagesGrid.innerHTML = '';
-
-    ['starter', 'growth', 'authority'].forEach(key => {
-      const pkg = PACKAGES[key];
-      const isRec = key === recommended;
-      packagesGrid.innerHTML += `
-        <div class="pkg ${isRec ? 'recommended' : ''}">
-          ${isRec ? '<div class="pkg-badge">Best For You</div>' : ''}
-          <div class="pkg-name">${pkg.name}</div>
-          <div class="pkg-price">${pkg.price}</div>
-          <div class="pkg-period">${pkg.desc}</div>
-          <ul class="pkg-features">
-            ${pkg.features.map(f => `<li>${f}</li>`).join('')}
-          </ul>
-        </div>`;
-    });
-
-    const resultsEl = document.getElementById('results');
-    resultsEl.style.display = 'block';
-    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  document.getElementById('auditForm').addEventListener('submit', e => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    const bizName = document.getElementById('bizName').value.trim();
-    const budget = parseInt(budgetSlider.value);
-    const score = computeScore(answers, budget);
-
-    renderResults(bizName, score, answers, budget);
-  });
-
-  document.getElementById('resetBtn').addEventListener('click', () => {
-    document.getElementById('auditForm').reset();
-    budgetSlider.value = 2500;
-    updateBudgetSlider();
-
-    document.querySelectorAll('.toggle-btn').forEach(b => {
-      b.classList.remove('active-yes', 'active-no');
-    });
-    for (const k in answers) delete answers[k];
-
-    document.getElementById('results').style.display = 'none';
-    document.getElementById('scoreFill').style.strokeDashoffset = 345;
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+// INIT
+generateIdeas();
 </script>
+
 </body>
 </html>
