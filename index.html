@@ -714,14 +714,76 @@
   .script-config::-webkit-scrollbar { width: 4px; }
   .script-config::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
+  /* BOTTOM NAV (mobile only) */
+  .bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+    z-index: 100;
+    justify-content: space-around;
+  }
+  .bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 8px;
+    transition: color 0.2s;
+    min-width: 52px;
+  }
+  .bottom-nav-item .bn-icon { font-size: 20px; line-height: 1; }
+  .bottom-nav-item.active { color: var(--accent); }
+  .bottom-nav-item .bn-badge {
+    position: absolute;
+    top: 0; right: 4px;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
   /* RESPONSIVE */
-  @media (max-width: 900px) {
+  @media (max-width: 680px) {
+    .sidebar { display: none; }
+    .bottom-nav { display: flex; }
+    .main { padding-bottom: 70px; }
+    .topbar { padding: 14px 16px; }
+    .topbar-title { font-size: 16px; }
+    .content { padding: 16px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .analysis-grid { grid-template-columns: 1fr; }
+    .ideas-grid { grid-template-columns: 1fr; }
+    .script-builder { grid-template-columns: 1fr; height: auto; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .repost-layout { grid-template-columns: 1fr; }
+    .hook-input-row { grid-template-columns: 1fr; }
+    .hook-breakdown-grid { grid-template-columns: 1fr 1fr; }
+    .profile-header { padding: 18px; }
+    .profile-connect { gap: 8px; }
+    .platform-btn { font-size: 12px; padding: 8px 12px; }
+    .input-row { flex-direction: column; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .ideas-filter { gap: 6px; }
+    .stat-value { font-size: 22px; }
+    .video-drop { padding: 32px 16px; }
+    .queue-item { flex-wrap: wrap; gap: 10px; }
+    .plan-badge { display: none; }
+  }
+
+  @media (min-width: 681px) and (max-width: 900px) {
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .analysis-grid { grid-template-columns: 1fr; }
     .ideas-grid { grid-template-columns: repeat(2, 1fr); }
     .script-builder { grid-template-columns: 1fr; height: auto; }
     .metrics-grid { grid-template-columns: 1fr 1fr; }
     .repost-layout { grid-template-columns: 1fr; }
+    .hook-input-row { grid-template-columns: 1fr; }
   }
 
   /* TYPING CURSOR */
@@ -848,29 +910,29 @@
     </div>
     <nav class="nav-section">
       <div class="nav-label">Analyze</div>
-      <div class="nav-item active" onclick="showScreen('profile', this)">
+      <div class="nav-item active" data-screen="profile" onclick="showScreen('profile', this)">
         <span class="icon">👤</span> Profile
       </div>
-      <div class="nav-item" onclick="showScreen('videos', this)">
+      <div class="nav-item" data-screen="videos" onclick="showScreen('videos', this)">
         <span class="icon">🎬</span> Videos
       </div>
-      <div class="nav-item" onclick="showScreen('hooks', this)">
+      <div class="nav-item" data-screen="hooks" onclick="showScreen('hooks', this)">
         <span class="icon">🪝</span> Hook Analyzer
         <span class="nav-badge">AI</span>
       </div>
 
       <div class="nav-label" style="margin-top:20px;">Create</div>
-      <div class="nav-item" onclick="showScreen('ideas', this)">
+      <div class="nav-item" data-screen="ideas" onclick="showScreen('ideas', this)">
         <span class="icon">💡</span> Ideas
         <span class="nav-badge">AI</span>
       </div>
-      <div class="nav-item" onclick="showScreen('scripts', this)">
+      <div class="nav-item" data-screen="scripts" onclick="showScreen('scripts', this)">
         <span class="icon">📝</span> Scripts
         <span class="nav-badge">AI</span>
       </div>
 
       <div class="nav-label" style="margin-top:20px;">Distribute</div>
-      <div class="nav-item" onclick="showScreen('repost', this)">
+      <div class="nav-item" data-screen="repost" onclick="showScreen('repost', this)">
         <span class="icon">🔁</span> Repost
       </div>
     </nav>
@@ -1180,6 +1242,26 @@
 
     </div>
   </div>
+  <!-- BOTTOM NAV (mobile) -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <div class="bottom-nav-item active" onclick="showScreen('profile', this)" data-screen="profile">
+      <span class="bn-icon">👤</span>Profile
+    </div>
+    <div class="bottom-nav-item" onclick="showScreen('hooks', this)" data-screen="hooks" style="position:relative;">
+      <span class="bn-icon">🪝</span>Hooks
+      <div class="bn-badge"></div>
+    </div>
+    <div class="bottom-nav-item" onclick="showScreen('ideas', this)" data-screen="ideas">
+      <span class="bn-icon">💡</span>Ideas
+    </div>
+    <div class="bottom-nav-item" onclick="showScreen('scripts', this)" data-screen="scripts">
+      <span class="bn-icon">📝</span>Scripts
+    </div>
+    <div class="bottom-nav-item" onclick="showScreen('repost', this)" data-screen="repost">
+      <span class="bn-icon">🔁</span>Repost
+    </div>
+  </nav>
+
 </div>
 
 <script>
@@ -1198,8 +1280,12 @@ const titles = {
 function showScreen(name, el) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.bottom-nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('screen-' + name).classList.add('active');
   el.classList.add('active');
+  // sync the other nav (sidebar vs bottom)
+  const mirror = document.querySelector(`.bottom-nav-item[data-screen="${name}"], .nav-item[data-screen="${name}"]`);
+  if (mirror && mirror !== el) mirror.classList.add('active');
   document.getElementById('screen-title').textContent = titles[name];
   if (name === 'ideas' && document.getElementById('ideas-grid').children.length === 0) generateIdeas();
   if (name === 'repost') renderRepostQueue();
