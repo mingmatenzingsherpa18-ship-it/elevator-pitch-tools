@@ -954,7 +954,7 @@
         <div class="topbar-title" id="screen-title">Profile Analysis</div>
       </div>
       <div class="topbar-actions">
-        <button class="btn btn-ghost">Help</button>
+        <button class="btn btn-ghost" onclick="setApiKey()" title="Set API Key">🔑 API Key</button>
         <button class="btn btn-primary" onclick="runAnalysis()">⚡ Analyze Now</button>
       </div>
     </div>
@@ -1294,16 +1294,47 @@ function showScreen(name, el) {
 // ============================================================
 // CLAUDE API CALL
 // ============================================================
+function getApiKey() {
+  return localStorage.getItem('blowup_api_key') || '';
+}
+
+function promptForKey() {
+  const key = prompt('Enter your Anthropic API key (sk-ant-...):\n\nGet one free at console.anthropic.com');
+  if (key && key.startsWith('sk-')) {
+    localStorage.setItem('blowup_api_key', key.trim());
+    return key.trim();
+  }
+  return null;
+}
+
 async function callClaude(prompt) {
+  let key = getApiKey();
+  if (!key) {
+    key = promptForKey();
+    if (!key) throw new Error('No API key');
+  }
+
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
     body: JSON.stringify({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 1000,
       messages: [{ role: 'user', content: prompt }]
     })
   });
+
+  if (res.status === 401) {
+    localStorage.removeItem('blowup_api_key');
+    throw new Error('Invalid API key — please re-enter');
+  }
+  if (!res.ok) throw new Error(`API error ${res.status}`);
+
   const data = await res.json();
   return data.content?.[0]?.text || '';
 }
@@ -1356,7 +1387,7 @@ Return ONLY the JSON object, no markdown.`;
     document.getElementById('stats-section').style.display = 'grid';
     document.getElementById('analysis-section').style.display = 'grid';
   } catch(e) {
-    alert('API error — check your connection.');
+    alert(e.message || 'API error — check your connection.');
   }
   document.getElementById('profile-loading').classList.remove('visible');
 }
@@ -1677,7 +1708,7 @@ ${context}
 
     document.getElementById('hook-results').style.display = 'flex';
   } catch(e) {
-    alert('Analysis failed. Check API.');
+    alert(e.message || 'Analysis failed — check your API key.');
   }
   document.getElementById('hook-loading').classList.remove('visible');
 }
@@ -1691,6 +1722,17 @@ function copyTemplate(el, text) {
 
 // INIT
 generateIdeas();
+
+function setApiKey() {
+  const current = getApiKey();
+  const key = prompt(`Enter your Anthropic API key:\n\n${current ? 'Current key: ' + current.slice(0,12) + '...' : 'No key set yet'}\n\nGet one free at console.anthropic.com`);
+  if (key && key.startsWith('sk-')) {
+    localStorage.setItem('blowup_api_key', key.trim());
+    alert('API key saved!');
+  } else if (key) {
+    alert('Invalid key — must start with sk-');
+  }
+}
 
 // SERVICE WORKER
 if ('serviceWorker' in navigator) {
