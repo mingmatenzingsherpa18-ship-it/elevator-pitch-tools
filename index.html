@@ -720,6 +720,113 @@
   /* TYPING CURSOR */
   .cursor { display: inline-block; width: 2px; height: 14px; background: var(--accent); margin-left: 2px; animation: blink 0.8s step-end infinite; vertical-align: text-bottom; }
   @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+  /* HOOK ANALYZER */
+  .hook-input-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hook-input-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(110,143,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hook-input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .hook-results { display: flex; flex-direction: column; gap: 16px; }
+  .hook-breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .hook-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hook-card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 8px;
+  }
+  .hook-card-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .hook-card-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .hook-type-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, rgba(185,110,247,0.2), rgba(110,143,255,0.2));
+    border: 1px solid rgba(185,110,247,0.3);
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .steal-list { display: flex; flex-direction: column; gap: 10px; }
+  .steal-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .steal-item:hover { border-color: rgba(185,110,247,0.4); background: rgba(185,110,247,0.05); }
+  .steal-num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .steal-text { font-size: 13px; line-height: 1.6; flex: 1; }
+  .steal-copy {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+  .steal-copy:hover { opacity: 0.7; }
+
+  @media (max-width: 900px) {
+    .hook-breakdown-grid { grid-template-columns: 1fr 1fr; }
+    .hook-input-row { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -739,6 +846,10 @@
       </div>
       <div class="nav-item" onclick="showScreen('videos', this)">
         <span class="icon">🎬</span> Videos
+      </div>
+      <div class="nav-item" onclick="showScreen('hooks', this)">
+        <span class="icon">🪝</span> Hook Analyzer
+        <span class="nav-badge">AI</span>
       </div>
 
       <div class="nav-label" style="margin-top:20px;">Create</div>
@@ -984,6 +1095,55 @@
         </div>
       </div>
 
+      <!-- HOOK ANALYZER SCREEN -->
+      <div id="screen-hooks" class="screen">
+        <div class="section-header">
+          <div>
+            <h2>Hook Analyzer</h2>
+            <div class="section-sub">Paste any reel — get the exact hook technique so you can replicate it</div>
+          </div>
+        </div>
+
+        <div class="hook-input-card">
+          <div class="hook-input-row">
+            <div>
+              <label class="form-label">Video URL</label>
+              <input class="input-field" id="hook-url" placeholder="https://instagram.com/reel/... or TikTok / YouTube" style="width:100%" />
+            </div>
+            <div>
+              <label class="form-label">Caption / Text Overlay (optional but helps)</label>
+              <input class="input-field" id="hook-caption" placeholder="Paste the caption or any on-screen text..." style="width:100%" />
+            </div>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="form-label">Describe the first 3 seconds (optional)</label>
+            <textarea class="textarea-field" id="hook-description" rows="2" placeholder="e.g. Person walks in holding coffee, text pops up saying 'I quit my 9-5 today'..."></textarea>
+          </div>
+          <button class="btn btn-primary" style="padding:11px 24px;" onclick="analyzeHook()">🪝 Analyze Hook</button>
+        </div>
+
+        <div class="loading-overlay" id="hook-loading">
+          <div class="spinner"></div> Breaking down the hook technique...
+        </div>
+
+        <div class="hook-results" id="hook-results" style="display:none;">
+
+          <div class="hook-card" style="grid-column:1/-1;">
+            <div class="ai-tag"><div class="ai-dot"></div> AI Hook Breakdown</div>
+            <div class="hook-type-badge" id="hook-type-badge"></div>
+            <div id="hook-summary" style="font-size:13px;line-height:1.8;color:var(--text);"></div>
+          </div>
+
+          <div class="hook-breakdown-grid" id="hook-breakdown-grid"></div>
+
+          <div class="hook-card">
+            <h3 style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:16px;">🎯 Steal This Hook — Ready-to-Use Templates</h3>
+            <div class="steal-list" id="steal-list"></div>
+          </div>
+
+        </div>
+      </div>
+
       <!-- REPOST SCREEN -->
       <div id="screen-repost" class="screen">
         <div class="section-header">
@@ -1024,6 +1184,7 @@ const titles = {
   ideas: 'Content Ideas',
   scripts: 'Script Generator',
   videos: 'Video Analysis',
+  hooks: 'Hook Analyzer',
   repost: 'Auto-Repost'
 };
 
@@ -1348,6 +1509,91 @@ function runRepost() {
     btn.textContent = '✓ All Videos Reposted';
     setTimeout(() => { btn.textContent = '🔁 Run Repost Queue'; btn.disabled = false; }, 3000);
   }, 2000);
+}
+
+// ============================================================
+// HOOK ANALYZER
+// ============================================================
+async function analyzeHook() {
+  const url = document.getElementById('hook-url').value.trim();
+  const caption = document.getElementById('hook-caption').value.trim();
+  const description = document.getElementById('hook-description').value.trim();
+
+  if (!url && !caption && !description) {
+    alert('Paste at least a URL or describe the reel.');
+    return;
+  }
+
+  document.getElementById('hook-loading').classList.add('visible');
+  document.getElementById('hook-results').style.display = 'none';
+
+  const context = [
+    url ? `Video URL: ${url}` : '',
+    caption ? `Caption / on-screen text: "${caption}"` : '',
+    description ? `First 3 seconds: ${description}` : ''
+  ].filter(Boolean).join('\n');
+
+  const prompt = `You are an expert viral content strategist who specializes in dissecting social media hooks.
+
+Analyze this reel/video and return ONLY a JSON object — no markdown:
+
+${context}
+
+{
+  "hook_type": "short punchy name for the hook technique (e.g. 'Fake Native Feature Hook', 'Near-Miss Hook', 'Forbidden Knowledge Hook')",
+  "summary": "2-3 sentences explaining exactly why this hook works psychologically. Be specific about the trigger.",
+  "breakdown": [
+    { "label": "Psychological Trigger", "value": "name the trigger", "desc": "one sentence explanation" },
+    { "label": "Pattern Interrupt", "value": "what stops the scroll", "desc": "one sentence explanation" },
+    { "label": "Retention Driver", "value": "what makes them watch on", "desc": "one sentence explanation" },
+    { "label": "Shareability Factor", "value": "why people send this", "desc": "one sentence explanation" },
+    { "label": "Emotional Arc", "value": "the feeling journey", "desc": "one sentence explanation" },
+    { "label": "CTA Magnet", "value": "what drives comments/saves", "desc": "one sentence explanation" }
+  ],
+  "steal_templates": [
+    "Ready-to-use hook line 1 in the same style — fill in your niche",
+    "Ready-to-use hook line 2",
+    "Ready-to-use hook line 3",
+    "Ready-to-use hook line 4",
+    "Ready-to-use hook line 5"
+  ]
+}`;
+
+  try {
+    const raw = await callClaude(prompt);
+    const d = JSON.parse(raw.replace(/```json|```/g, '').trim());
+
+    document.getElementById('hook-type-badge').textContent = d.hook_type;
+    document.getElementById('hook-summary').textContent = d.summary;
+
+    document.getElementById('hook-breakdown-grid').innerHTML = d.breakdown.map(b => `
+      <div class="hook-card">
+        <div class="hook-card-label">${b.label}</div>
+        <div class="hook-card-value">${b.value}</div>
+        <div class="hook-card-desc">${b.desc}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('steal-list').innerHTML = d.steal_templates.map((t, i) => `
+      <div class="steal-item">
+        <div class="steal-num">${i + 1}</div>
+        <div class="steal-text">${t}</div>
+        <div class="steal-copy" onclick="copyTemplate(this, \`${t.replace(/`/g, '\\`')}\`)">Copy</div>
+      </div>
+    `).join('');
+
+    document.getElementById('hook-results').style.display = 'flex';
+  } catch(e) {
+    alert('Analysis failed. Check API.');
+  }
+  document.getElementById('hook-loading').classList.remove('visible');
+}
+
+function copyTemplate(el, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    el.textContent = 'Copied!';
+    setTimeout(() => el.textContent = 'Copy', 2000);
+  });
 }
 
 // INIT
